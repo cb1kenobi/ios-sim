@@ -39,6 +39,8 @@
 		24813649115A750000E3A9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
 		2481364A115A750000E3A9BA /* nsprintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nsprintf.h; path = Source/nsprintf.h; sourceTree = "<group>"; };
 		2481364B115A750000E3A9BA /* nsprintf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = nsprintf.m; path = Source/nsprintf.m; sourceTree = "<group>"; };
+		2BB505CF197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTiPhoneSimulatorRemoteClient.h; sourceTree = "<group>"; };
+		2BB505D1197F218700AB44E6 /* CoreSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSimulator.h; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* ios-sim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios-sim_Prefix.pch"; sourceTree = "<group>"; };
 		51448B3212BCF637001F99BD /* NSString+expandPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+expandPath.h"; path = "Source/NSString+expandPath.h"; sourceTree = "<group>"; };
 		51448B3312BCF637001F99BD /* NSString+expandPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+expandPath.m"; path = "Source/NSString+expandPath.m"; sourceTree = "<group>"; };
@@ -75,6 +77,8 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2BB505D0197F218700AB44E6 /* CoreSimulator */,
+				2BB505CE197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient */,
 				24813647115A750000E3A9BA /* iPhoneSimulator.h */,
 				24813648115A750000E3A9BA /* iPhoneSimulator.m */,
 				24813649115A750000E3A9BA /* main.m */,
@@ -102,6 +106,22 @@
 				8DD76FA10486AA7600D96B5E /* ios-sim */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2BB505CE197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient */ = {
+			isa = PBXGroup;
+			children = (
+				2BB505CF197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient.h */,
+			);
+			path = DVTiPhoneSimulatorRemoteClient;
+			sourceTree = "<group>";
+		};
+		2BB505D0197F218700AB44E6 /* CoreSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				2BB505D1197F218700AB44E6 /* CoreSimulator.h */,
+			);
+			path = CoreSimulator;
 			sourceTree = "<group>";
 		};
 		DAD3AA961476F046000828B8 /* Configs */ = {

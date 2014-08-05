@@ -40,11 +40,18 @@ NSString *deviceIpad = @"iPad";
 
 
 // The path within the developer dir of the private Simulator frameworks.
-NSString* const kSimulatorFrameworkRelativePath = @"Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/DVTiPhoneSimulatorRemoteClient.framework";
-NSString* const kDVTFoundationRelativePath = @"../SharedFrameworks/DVTFoundation.framework";
-NSString* const kDevToolsFoundationRelativePath = @"../OtherFrameworks/DevToolsFoundation.framework";
-NSString* const kSimulatorRelativePath = @"Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app";
+NSString * const kSimulatorFrameworkRelativePath = @"Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/DVTiPhoneSimulatorRemoteClient.framework";
+NSString * const kDVTFoundationRelativePath = @"../SharedFrameworks/DVTFoundation.framework";
+NSString * const kDevToolsFoundationRelativePath = @"../OtherFrameworks/DevToolsFoundation.framework";
+NSString * const kSimulatorRelativePath = @"Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app";
 
+
+// Xcode 6 section block
+
+NSString * const kXcode6SimulatorRelativePath = @"../SharedFrameworks/DVTiPhoneSimulatorRemoteClient.framework";
+NSString * const kXcode6CoreSimulatorRelativePath = @"Library/PrivateFrameworks/CoreSimulator.framework";
+
+// End of Xcode 6 block.
 
 @interface DVTPlatform : NSObject
 + (BOOL)loadAllPlatformsReturningError:(id*)arg1;
@@ -89,15 +96,25 @@ NSString* const kSimulatorRelativePath = @"Platforms/iPhoneSimulator.platform/De
         nsprintf(@"Unable to loadAllPlatformsReturningError. Error: %@",[error localizedDescription]);
         return ;
     }
+    //Xcode 5 and below.
     NSString* simBundlePath = [developerDir stringByAppendingPathComponent:kSimulatorFrameworkRelativePath];
-    NSBundle* simBundle = [NSBundle bundleWithPath:simBundlePath];
-    if (![simBundle load]){
-        nsprintf(@"Unable to load simulator framework. Error: %@",[error localizedDescription]);
-        return ;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:simBundlePath]) {
+        simBundlePath = [developerDir stringByAppendingPathComponent:kXcode6SimulatorRelativePath];
+        isXcode6 = YES;
+        NSString * coreSimBundlePath = [developerDir stringByAppendingPathComponent:kXcode6CoreSimulatorRelativePath];
+        NSBundle* coreBundle = [NSBundle bundleWithPath:coreSimBundlePath];
+        if (![coreBundle load]) {
+            nsprintf(@"Unable to load core simulator framework");
+            exit(EXIT_FAILURE);
+        }
     }
-    return ;
+    NSBundle* simBundle = [NSBundle bundleWithPath:simBundlePath];
+    if (![simBundle load]) {
+        nsprintf(@"Unable to load simulator framework");
+        exit(EXIT_FAILURE);
+    }
+    return;
 }
-
 
 // Finds the developer dir via xcode-select or the DEVELOPER_DIR environment
 // variable.
@@ -138,6 +155,7 @@ NSString* FindDeveloperDir() {
   fprintf(stderr, "Commands:\n");
   fprintf(stderr, "  showsdks                        List the available iOS SDK versions\n");
   fprintf(stderr, "  launch <application path>       Launch the application at the specified path on the iOS Simulator\n");
+  fprintf(stderr, "  showallsimulators               List all simulators available. (Xcode 6+)");
   fprintf(stderr, "\n");
 
   fprintf(stderr, "Options:\n");
@@ -147,11 +165,12 @@ NSString* FindDeveloperDir() {
   fprintf(stderr, "  --help                          Show this help text\n");
   fprintf(stderr, "  --verbose                       Set the output level to verbose\n");
   fprintf(stderr, "  --exit                          Exit after startup\n");
-  fprintf(stderr, "  --retina                        Start as a retina device\n");
-  fprintf(stderr, "  --tall                          Start the tall version of the iPhone simulator(4-inch simulator), to be used in conjuction with retina flag\n");
-  fprintf(stderr, "  --sim-64bit                      Start 64 bit version of iOS 7 simulator\n");
+  fprintf(stderr, "  --retina                        Start as a retina device(DEPRECATED)\n");
+  fprintf(stderr, "  --tall                          Start the tall version of the iPhone simulator(4-inch simulator), to be used in conjuction with retina flag(DEPRECATED)\n");
+  fprintf(stderr, "  --sim-64bit                     Start 64 bit version of iOS 7 simulator(DEPRECATED))\n");
   fprintf(stderr, "  --timeout                       Set the timeout value for a new session from the Simulator. Default: 30 seconds \n");
   fprintf(stderr, "  --sdk <sdkversion>              The iOS SDK version to run the application on (defaults to the latest)\n");
+  fprintf(stderr, "  --udid <unique device ID>       The UDID of the simulator being launched. Run `ios-sim listSimulators` to get the list of simulators.\n");
   fprintf(stderr, "  --family <device family>        The device type that should be simulated (defaults to `iphone')\n");
   fprintf(stderr, "  --uuid <uuid>                   A UUID identifying the session (is that correct?)\n");
   fprintf(stderr, "  --env <environment file path>   A plist file containing environment key-value pairs that should be set\n");
@@ -206,19 +225,74 @@ NSString* FindDeveloperDir() {
 
 }
 
-- (int) showSDKs {
-  Class systemRootClass = [self FindClassByName:@"DTiPhoneSimulatorSystemRoot"];
+-(SimDevice *)FindDeviceToBeSimulated:(NSString *)udid {
     
-  NSArray *roots = [systemRootClass knownRoots];
+    Class simDeviceSetClass = [self FindClassByName:@"SimDeviceSet"];
+    NSArray *devices = [[simDeviceSetClass defaultSet] availableDevices];
 
-  nsprintf(@"Simulator SDK Roots:");
-  for (DTiPhoneSimulatorSystemRoot *root in roots) {
-    nsfprintf(stderr, @"'%@' (%@)\n\t%@", [root sdkDisplayName], [root sdkVersion], [root sdkRootPath]);
-  }
-
-  return EXIT_SUCCESS;
+    for (id device in devices) {
+        if (verbose) {
+            nsprintf(@"Comparing %@ == %@",[device UDID].UUIDString , udid );
+        }
+        if ([[device UDID].UUIDString isEqualToString:udid]) {
+        return device;
+        }
+    }
+    return nil;
 }
 
+- (int) showSDKs {
+    Class systemRootClass = [self FindClassByName:@"DTiPhoneSimulatorSystemRoot"];
+    if (isXcode6) {
+        
+        Class simRunTimeClass = [self FindClassByName:@"SimRuntime"];
+        id supportedRuntimes = [simRunTimeClass supportedRuntimes];
+        printf("Available iOS SDK's\n");
+        for (id runtime in supportedRuntimes) {
+            nsfprintf(stderr,@" %@",[runtime name]);
+        }
+    } else {
+        NSArray *roots = [systemRootClass knownRoots];
+        nsprintf(@"Simulator SDK Roots:");
+        for (DTiPhoneSimulatorSystemRoot *root in roots) {
+            nsfprintf(stderr, @"'%@' (%@)\n\t%@", [root sdkDisplayName], [root sdkVersion], [root sdkRootPath]);
+        }
+    }
+    return EXIT_SUCCESS;
+}
+
+
+- (int)showAllSimulators{
+   
+    if (isXcode6) {
+        Class simDeviceSetClass = [self FindClassByName:@"SimDeviceSet"];
+        NSArray *devices = [[simDeviceSetClass defaultSet] availableDevices];
+        NSMutableArray *deviceArray = [NSMutableArray arrayWithCapacity:[devices count]];
+        for (id device in devices) {
+            [deviceArray addObject:@{
+                                     @"name"      : [device name],
+                                     @"version"   : [device runtime].versionString,
+                                     @"udid"      : [device UDID].UUIDString,
+                                     @"state"     : [device stateString],
+                                     @"logpath"   : [device logPath],
+                                     @"deviceType": [device deviceType].name,
+                                     @"type"      : [device deviceType].productFamily}];
+        }
+        if ([deviceArray count] > 0) {
+            nsprintf(@"Available Simulator\n");
+            NSError * error = nil;
+            NSData * JSONData = [NSJSONSerialization dataWithJSONObject:deviceArray
+                                                                options:NSJSONWritingPrettyPrinted
+                                                                  error:&error];
+            nsprintf(@"%@",[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding]);
+        }
+    } else {
+        nsprintf(@"This method is only available on Xcode 6");
+        
+        [self showSDKs];
+    }
+    return EXIT_SUCCESS;
+}
 
 - (void)session:(DTiPhoneSimulatorSession *)session didEndWithError:(NSError *)error {
   if (verbose) {
@@ -316,6 +390,7 @@ NSString* FindDeveloperDir() {
 
 - (int)launchApp:(NSString *)path withFamily:(NSString *)family
                                  withTimeout:(NSTimeInterval)timeout
+                                        udid:(NSString*)udid
                                         uuid:(NSString *)uuid
                                  environment:(NSDictionary *)environment
                                   stdoutPath:(NSString *)stdoutPath
@@ -325,7 +400,6 @@ NSString* FindDeveloperDir() {
   DTiPhoneSimulatorSessionConfig *config;
   DTiPhoneSimulatorSession *session;
   NSError *error;
-
   NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
   if (!startOnly && ![fileManager fileExistsAtPath:path]) {
     nsprintf(@"Could not load application specification for %s", path);
@@ -384,21 +458,42 @@ NSString* FindDeveloperDir() {
       [config setSimulatedDeviceFamily:[NSNumber numberWithInt:1]];
     }
   }
+  
+    //Xcode 6
+    if (isXcode6) {
+            if (((NSNull *) udid == [NSNull null]) ||
+                ([udid length] == 0)||
+                (udid == nil) ||
+                ([[udid stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0))  {
+                nsprintf(@"To launch simulator on Xcode 6 please provide a valid simulator UDID. Run `ios-sim showAllSimulators` to get a list of all Simulators.");
+                return EXIT_FAILURE;
+            }
+        SimDevice *device = [self FindDeviceToBeSimulated:udid];
+        if (device == nil) {
+            nsprintf(@"Unable to locate the Simulator with the provided udid : %@", udid);
+            exit(EXIT_FAILURE);
+        }
+        
+        config.device = device;
+        nsprintf(@"set device to : %@",device.name);
+    } else {
+        /* Figure out the type of simulator we need to open up.*/
+        NSString *deviceInfoName = [self findDeviceType:family];
+        [config setSimulatedDeviceInfoName:deviceInfoName];
+       
+    }
     
-  /* Figure out the type of simulator we need to open up.*/
-    NSString *deviceInfoName = [self findDeviceType:family];
-   [config setSimulatedDeviceInfoName:deviceInfoName];
   /* Start the session */
   session = [[[[self FindClassByName:@"DTiPhoneSimulatorSession"] alloc] init] autorelease];
   [session setDelegate:self];
-  [session setSimulatedApplicationPID: [NSNumber numberWithInt:35]];
   if (uuid != nil){
-    [session setUuid:uuid];
+      [session performSelector:@selector(setUuid:) withObject:uuid];
   }
   timeout = MIN(500, MAX(90, timeout));
+    
   if (![session requestStartWithConfig:config timeout:timeout error:&error]) {
-    nsprintf(@"Could not start simulator session: %@", error);
-    return EXIT_FAILURE;
+    nsprintf(@"Could not start simulator session:");
+    exit(EXIT_FAILURE);
   }
 
   return EXIT_SUCCESS;
@@ -434,6 +529,9 @@ NSString* FindDeveloperDir() {
   if (strcmp(argv[1], "showsdks") == 0) {
     [self LoadSimulatorFramework:developerDir];
     exit([self showSDKs]);
+  } else if (strcmp(argv[1], "showallsimulators") == 0) {
+      [self LoadSimulatorFramework:developerDir];
+      exit([self showAllSimulators]);
   } else if (launchFlag || startOnly) {
     if (launchFlag && argc < 3) {
       fprintf(stderr, "Missing application path argument\n");
@@ -454,6 +552,7 @@ NSString* FindDeveloperDir() {
     NSString *uuid = nil;
     NSString *stdoutPath = nil;
     NSString *stderrPath = nil;
+    NSString *udid = nil;
     NSMutableDictionary *environment = [NSMutableDictionary dictionary];
     int i = numOfArgs;
     for (; i < argc; i++) {
@@ -499,7 +598,7 @@ NSString* FindDeveloperDir() {
       } else if (strcmp(argv[i], "--env") == 0) {
         i++;
         NSString *envFilePath = [[NSString stringWithUTF8String:argv[i]] expandPath];
-        environment = [NSDictionary dictionaryWithContentsOfFile:envFilePath];
+        environment = [NSMutableDictionary dictionaryWithContentsOfFile:envFilePath];
         if (!environment) {
           fprintf(stderr, "Could not read environment from file: %s\n", argv[i]);
           [self printUsage];
@@ -528,20 +627,24 @@ NSString* FindDeveloperDir() {
       } else if (strcmp(argv[i], "--timeout") == 0){
           i++;
           timeout = [[NSString  stringWithUTF8String:argv[i]] doubleValue];
+      } else if (strcmp(argv[i], "--udid") == 0 ){
+          i++;
+          udid = [NSString stringWithUTF8String:argv[i]];
       } else {
         fprintf(stderr, "unrecognized argument:%s\n", argv[i]);
         [self printUsage];
         exit(EXIT_FAILURE);
       }
     }
-      i = MIN(argc, i);
+    i = MIN(argc, i);
     NSMutableArray *args = [NSMutableArray arrayWithCapacity:(argc - i)];
     for (; i < argc; i++) {
       [args addObject:[NSString stringWithUTF8String:argv[i]]];
     }
 
     if (sdkRoot == nil) {
-        Class systemRootClass = [self FindClassByName:@"DTiPhoneSimulatorSystemRoot"];
+      [self LoadSimulatorFramework:developerDir];
+      Class systemRootClass = [self FindClassByName:@"DTiPhoneSimulatorSystemRoot"];
       sdkRoot = [systemRootClass defaultRoot];
     }
 
@@ -549,7 +652,8 @@ NSString* FindDeveloperDir() {
     [self launchApp:appPath
          withFamily:family
         withTimeout:timeout
-                uuid:uuid
+               udid:udid
+               uuid:uuid
         environment:environment
          stdoutPath:stdoutPath
          stderrPath:stderrPath
