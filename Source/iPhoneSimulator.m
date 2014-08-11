@@ -263,35 +263,32 @@ NSString* FindDeveloperDir() {
 
 
 - (int)showAllSimulators{
-   
-    if (isXcode6) {
-        Class simDeviceSetClass = [self FindClassByName:@"SimDeviceSet"];
-        NSArray *devices = [[simDeviceSetClass defaultSet] availableDevices];
-        NSMutableArray *deviceArray = [NSMutableArray arrayWithCapacity:[devices count]];
-        for (id device in devices) {
-            [deviceArray addObject:@{
-                                     @"name"      : [device name],
-                                     @"version"   : [device runtime].versionString,
-                                     @"udid"      : [device UDID].UUIDString,
-                                     @"state"     : [device stateString],
-                                     @"logpath"   : [device logPath],
-                                     @"deviceType": [device deviceType].name,
-                                     @"type"      : [device deviceType].productFamily}];
-        }
-        if ([deviceArray count] > 0) {
-            nsprintf(@"Available Simulator\n");
-            NSError * error = nil;
-            NSData * JSONData = [NSJSONSerialization dataWithJSONObject:deviceArray
-                                                                options:NSJSONWritingPrettyPrinted
-                                                                  error:&error];
-            nsprintf(@"%@",[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding]);
-        }
-    } else {
-        nsprintf(@"This method is only available on Xcode 6");
-        
-        [self showSDKs];
-    }
-    return EXIT_SUCCESS;
+	if (isXcode6) {
+		Class simDeviceSetClass = [self FindClassByName:@"SimDeviceSet"];
+		NSArray *devices = [[simDeviceSetClass defaultSet] availableDevices];
+		NSMutableArray *deviceArray = [NSMutableArray arrayWithCapacity:[devices count]];
+		for (id device in devices) {
+			[deviceArray addObject:@{
+				@"name"      : [device name],
+				@"version"   : [device runtime].versionString,
+				@"udid"      : [device UDID].UUIDString,
+				@"state"     : [device stateString],
+				@"logpath"   : [device logPath],
+				@"deviceType": [device deviceType].name,
+				@"type"      : [device deviceType].productFamily}];
+			}
+		if ([deviceArray count] > 0) {
+			NSError * error = nil;
+			NSData * JSONData = [NSJSONSerialization dataWithJSONObject:deviceArray
+			options:NSJSONWritingPrettyPrinted
+			error:&error];
+			NSString *str = (NSString *) CFStringCreateWithFormatAndArguments(NULL, NULL, (CFStringRef) [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding], nil);
+			fprintf(stdout, "%s", [str UTF8String]);
+		}
+	} else {
+		fprintf(stdout, "null");
+	}
+	return EXIT_SUCCESS;
 }
 
 - (void)session:(DTiPhoneSimulatorSession *)session didEndWithError:(NSError *)error {
@@ -524,12 +521,29 @@ NSString* FindDeveloperDir() {
     nsprintf(@"Unable to find developer directory.");
     exit(EXIT_FAILURE);
   }
-  
+	
+  NSString *appPath = nil;
+  int numOfArgs;
+  if (startOnly) {
+    numOfArgs = 2;
+  } else if (argc > 2) {
+	 numOfArgs = 3;
+    appPath = [[NSString stringWithUTF8String:argv[2]] expandPath];
+  }
+	
+  int i = numOfArgs;
 
   if (strcmp(argv[1], "showsdks") == 0) {
     [self LoadSimulatorFramework:developerDir];
     exit([self showSDKs]);
   } else if (strcmp(argv[1], "showallsimulators") == 0) {
+	  for (i = 2; i < argc; i++) {
+		  if (strcmp(argv[i], "--xcode-dir") == 0) {
+			  if (++i < argc) {
+				  developerDir = [NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding];
+			  }
+		  }
+	  }
       [self LoadSimulatorFramework:developerDir];
       exit([self showAllSimulators]);
   } else if (launchFlag || startOnly) {
@@ -539,22 +553,12 @@ NSString* FindDeveloperDir() {
       exit(EXIT_FAILURE);
     }
 
-    NSString *appPath = nil;
-    int numOfArgs;
-    if (startOnly) {
-      numOfArgs = 2;
-    } else {
-      numOfArgs = 3;
-      appPath = [[NSString stringWithUTF8String:argv[2]] expandPath];
-    }
-
     NSString *family = nil;
     NSString *uuid = nil;
     NSString *stdoutPath = nil;
     NSString *stderrPath = nil;
     NSString *udid = nil;
     NSMutableDictionary *environment = [NSMutableDictionary dictionary];
-    int i = numOfArgs;
     for (; i < argc; i++) {
       if (strcmp(argv[i], "--version") == 0) {
         printf("%s\n", IOS_SIM_VERSION);
