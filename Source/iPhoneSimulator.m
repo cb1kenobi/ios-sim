@@ -345,11 +345,8 @@ NSString* FindDeveloperDir() {
       alreadyPrintedData = YES;
     }
   }
-  if ([notification object] == stdoutFileHandle) {
-    printf("%s", [str UTF8String]);
-  } else {
-    nsprintf(str);
-  }
+  fprintf(stdout, "%s", [str UTF8String]);
+  fflush(stdout);
 }
 
 
