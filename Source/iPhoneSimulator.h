@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import <DVTiPhoneSimulatorRemoteClient/DVTiPhoneSimulatorRemoteClient.h>
+#import "CoreSimulator.h"
 #import "version.h"
 
 @interface iPhoneSimulator : NSObject <DTiPhoneSimulatorSessionDelegate> {
@@ -37,6 +38,7 @@
   BOOL verbose;
   BOOL alreadyPrintedData;
   BOOL launchFlag;
+  BOOL isXcode6;
 }
 
 - (void)runWithArgc:(int)argc argv:(char **)argv;
