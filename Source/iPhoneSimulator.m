@@ -335,7 +335,6 @@ NSString* FindDeveloperDir() {
 
 
 - (void)stdioDataIsAvailable:(NSNotification *)notification {
-  [[notification object] readInBackgroundAndNotify];
   NSData *data = [[notification userInfo] valueForKey:NSFileHandleNotificationDataItem];
   NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
   if (!alreadyPrintedData) {
@@ -345,8 +344,10 @@ NSString* FindDeveloperDir() {
       alreadyPrintedData = YES;
     }
   }
-  fprintf(stdout, "%s", [str UTF8String]);
-  fflush(stdout);
+  if ([str length] > 0) {
+    fprintf(stdout, "%s", [str UTF8String]);
+    fflush(stdout);
+  }
 }
 
 
