@@ -10,17 +10,16 @@ typedef void (*CDUnknownFunctionPointerType)(void); // return type and parameter
 
 typedef void (^CDUnknownBlockType)(void); // return type and parameters are unknown
 
-
 #pragma mark -
 
 //
-// File: /Applications/Xcode6-Beta3.app/Contents/Developer/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/CoreSimulator
-// UUID: 7BE964DE-8F0C-307A-84D3-8E8ABF3A34B7
+// File: /Applications/Xcode_6.3_beta_2/Xcode-beta.app/Contents/Developer/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/CoreSimulator
+// UUID: 449CFFEC-0304-3F03-B436-70EBD4479FF4
 //
 //                           Arch: x86_64
-//                Current version: 97.0.0
+//                Current version: 117.13.0
 //          Compatibility version: 1.0.0
-//                 Source version: 97.0.0.0.0
+//                 Source version: 117.13.0.0.0
 //       Minimum Mac OS X version: 10.9.0
 //                    SDK version: 10.9.0
 //
@@ -56,7 +55,6 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (BOOL)unregisterNotificationHandler:(unsigned long long)arg1 error:(id *)arg2;
 - (unsigned long long)registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
 - (unsigned long long)registerNotificationHandler:(CDUnknownBlockType)arg1;
-- (void)dealloc;
 - (id)init;
 
 @end
@@ -104,8 +102,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     unsigned long long _state;
     NSString *_name;
     NSDictionary *_uiWindowProperties;
-    SimDeviceType *_deviceType;
-    SimRuntime *_runtime;
+    NSString *_deviceTypeIdentifier;
+    NSString *_runtimeIdentifier;
     NSUUID *_UDID;
     SimDeviceSet *_deviceSet;
     SimServiceConnectionManager *_connectionManager;
@@ -118,12 +116,14 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     NSMachPort *_hostSupportPort;
     NSMachPort *_simBridgePort;
     NSDistantObject<SimBridge> *_simBridgeDistantObject;
+    NSMutableArray *_darwinNotificationTokens;
 }
 
-+ (id)simDevice:(id)arg1 UDID:(id)arg2 deviceType:(id)arg3 runtime:(id)arg4 state:(unsigned long long)arg5 connectionManager:(id)arg6 setPath:(id)arg7;
++ (BOOL)isValidState:(unsigned long long)arg1;
++ (id)simDevice:(id)arg1 UDID:(id)arg2 deviceTypeIdentifier:(id)arg3 runtimeIdentifier:(id)arg4 state:(unsigned long long)arg5 connectionManager:(id)arg6 setPath:(id)arg7;
 + (id)simDeviceAtPath:(id)arg1;
 + (id)createDeviceWithName:(id)arg1 setPath:(id)arg2 deviceType:(id)arg3 runtime:(id)arg4;
-+ (BOOL)isValidState:(unsigned long long)arg1;
+@property(retain) NSMutableArray *darwinNotificationTokens; // @synthesize darwinNotificationTokens=_darwinNotificationTokens;
 @property(retain, nonatomic) NSDistantObject<SimBridge> *simBridgeDistantObject; // @synthesize simBridgeDistantObject=_simBridgeDistantObject;
 @property(retain, nonatomic) NSMachPort *simBridgePort; // @synthesize simBridgePort=_simBridgePort;
 @property(retain, nonatomic) NSMachPort *hostSupportPort; // @synthesize hostSupportPort=_hostSupportPort;
@@ -136,10 +136,14 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(retain) SimServiceConnectionManager *connectionManager; // @synthesize connectionManager=_connectionManager;
 @property(readonly) SimDeviceSet *deviceSet; // @synthesize deviceSet=_deviceSet;
 @property(copy) NSUUID *UDID; // @synthesize UDID=_UDID;
-@property(retain) SimRuntime *runtime; // @synthesize runtime=_runtime;
-@property(retain) SimDeviceType *deviceType; // @synthesize deviceType=_deviceType;
+@property(copy) NSString *runtimeIdentifier; // @synthesize runtimeIdentifier=_runtimeIdentifier;
+@property(copy) NSString *deviceTypeIdentifier; // @synthesize deviceTypeIdentifier=_deviceTypeIdentifier;
 - (BOOL)isAvailableWithError:(id *)arg1;
 @property(readonly) BOOL available;
+- (BOOL)triggerCloudSyncWithError:(id *)arg1;
+- (void)triggerCloudSyncWithCompletionHandler:(CDUnknownBlockType)arg1;
+- (BOOL)darwinNotificationSetState:(unsigned long long)arg1 name:(id)arg2 error:(id *)arg3;
+- (BOOL)darwinNotificationGetState:(unsigned long long *)arg1 name:(id)arg2 error:(id *)arg3;
 - (BOOL)postDarwinNotification:(id)arg1 error:(id *)arg2;
 - (int)launchApplicationWithID:(id)arg1 options:(id)arg2 error:(id *)arg3;
 - (void)launchApplicationAsyncWithID:(id)arg1 options:(id)arg2 completionHandler:(CDUnknownBlockType)arg3;
@@ -174,8 +178,10 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (void)handleXPCNotificationDeviceStateChanged:(id)arg1;
 - (void)handleXPCNotification:(id)arg1;
 @property(copy) NSDictionary *uiWindowProperties;
-@property(copy) NSString *name;
-@property unsigned long long state;
+- (void)setName:(id)arg1;
+@property(readonly, copy) NSString *name;
+- (void)setState:(unsigned long long)arg1;
+@property(readonly) unsigned long long state;
 - (id)stateString;
 - (BOOL)unregisterNotificationHandler:(unsigned long long)arg1 error:(id *)arg2;
 - (unsigned long long)registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
@@ -200,6 +206,7 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (void)updateAsyncUIWindowProperties:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
 - (void)_sendUIWindowPropertiesToDevice;
 - (BOOL)eraseContentsAndSettingsWithError:(id *)arg1;
+- (BOOL)_bq_eraseContentsAndSettingsWithError:(id *)arg1;
 - (void)eraseContentsAndSettingsAsyncWithCompletionHandler:(CDUnknownBlockType)arg1;
 - (BOOL)upgradeToRuntime:(id)arg1 error:(id *)arg2;
 - (void)upgradeAsyncToRuntime:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
@@ -216,6 +223,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(readonly) NSArray *launchDaemonsPaths;
 - (BOOL)removeLaunchdJobWithError:(id *)arg1;
 - (BOOL)createLaunchdJobWithError:(id *)arg1 extraEnvironment:(id)arg2 disabledJobs:(id)arg3;
+- (BOOL)createDarwinNotificationProxiesWithError:(id *)arg1;
+- (BOOL)createDarwinNotificationProxy:(id)arg1 toSimAs:(id)arg2 withState:(BOOL)arg3 error:(id *)arg4;
 - (BOOL)clearTmpWithError:(id *)arg1;
 - (BOOL)ensureLogPathsWithError:(id *)arg1;
 - (BOOL)supportsFeature:(id)arg1;
@@ -223,10 +232,11 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (void)saveToDisk;
 - (id)saveStateDict;
 - (void)validateAndFixState;
+@property(readonly, retain) SimRuntime *runtime;
+@property(readonly, retain) SimDeviceType *deviceType;
 @property(readonly, copy) NSString *descriptiveName;
 - (id)description;
-- (void)dealloc;
-- (id)initDevice:(id)arg1 UDID:(id)arg2 deviceType:(id)arg3 runtime:(id)arg4 state:(unsigned long long)arg5 connectionManager:(id)arg6 setPath:(id)arg7;
+- (id)initDevice:(id)arg1 UDID:(id)arg2 deviceTypeIdentifier:(id)arg3 runtimeIdentifier:(id)arg4 state:(unsigned long long)arg5 connectionManager:(id)arg6 setPath:(id)arg7;
 
 @end
 
@@ -235,6 +245,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     float _mainScreenScale;
     unsigned int _minRuntimeVersion;
     unsigned int _maxRuntimeVersion;
+    unsigned int _minCoreSimulatorFrameworkVersion;
+    unsigned int _maxCoreSimulatorFrameworkVersion;
     NSString *_name;
     NSString *_identifier;
     NSString *_modelIdentifier;
@@ -252,6 +264,7 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     struct CGSize _mainScreenDPI;
 }
 
++ (void)supportedDevicesAddProfilesAtPath:(id)arg1;
 + (id)supportedDeviceTypesByName;
 + (id)supportedDeviceTypesByAlias;
 + (id)supportedDeviceTypesByIdentifier;
@@ -263,6 +276,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(copy) NSDictionary *environment_extra; // @synthesize environment_extra=_environment_extra;
 @property(copy) NSString *productClass; // @synthesize productClass=_productClass;
 @property(copy) NSString *springBoardConfigName; // @synthesize springBoardConfigName=_springBoardConfigName;
+@property unsigned int maxCoreSimulatorFrameworkVersion; // @synthesize maxCoreSimulatorFrameworkVersion=_maxCoreSimulatorFrameworkVersion;
+@property unsigned int minCoreSimulatorFrameworkVersion; // @synthesize minCoreSimulatorFrameworkVersion=_minCoreSimulatorFrameworkVersion;
 @property unsigned int maxRuntimeVersion; // @synthesize maxRuntimeVersion=_maxRuntimeVersion;
 @property unsigned int minRuntimeVersion; // @synthesize minRuntimeVersion=_minRuntimeVersion;
 @property struct CGSize mainScreenDPI; // @synthesize mainScreenDPI=_mainScreenDPI;
@@ -284,7 +299,6 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(readonly, copy) NSString *productFamily;
 @property(readonly) int productFamilyID;
 - (id)description;
-- (void)dealloc;
 - (id)initWithBundle:(id)arg1;
 - (id)initWithPath:(id)arg1;
 - (id)init;
@@ -301,6 +315,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     SimDeviceNotificationManager *_notificationManager;
 }
 
++ (void)resubscribeAllToNotifications;
++ (id)allSets;
 + (id)setForSetPath:(id)arg1;
 + (id)defaultSet;
 + (id)defaultSetPath;
@@ -321,6 +337,7 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (id)createDeviceWithType:(id)arg1 runtime:(id)arg2 name:(id)arg3 error:(id *)arg4;
 - (void)createDeviceAsyncWithType:(id)arg1 runtime:(id)arg2 name:(id)arg3 completionHandler:(CDUnknownBlockType)arg4;
 - (BOOL)unregisterNotificationHandler:(unsigned long long)arg1 error:(id *)arg2;
+- (void)sendNotification:(id)arg1;
 - (unsigned long long)registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
 - (unsigned long long)registerNotificationHandler:(CDUnknownBlockType)arg1;
 - (void)removeDeviceAsync:(id)arg1;
@@ -332,8 +349,30 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(readonly, copy) NSArray *devices;
 @property(readonly, copy) NSDictionary *devicesByUDID;
 - (id)description;
-- (void)dealloc;
 - (id)initWithSetPath:(id)arg1;
+- (BOOL)subscribeToNotificationsWithError:(id *)arg1;
+
+@end
+
+@interface SimProfilesPathMonitor : NSObject
+{
+    NSObject<OS_dispatch_queue> *_monitorQueue;
+    NSMutableArray *_leafMonitorSources;
+    NSMutableDictionary *_monitoredPaths;
+}
+
++ (id)sharedProfilesPathMonitor;
+@property(retain) NSMutableDictionary *monitoredPaths; // @synthesize monitoredPaths=_monitoredPaths;
+@property(retain) NSMutableArray *leafMonitorSources; // @synthesize leafMonitorSources=_leafMonitorSources;
+@property(retain) NSObject<OS_dispatch_queue> *monitorQueue; // @synthesize monitorQueue=_monitorQueue;
+- (void)_monitorProfilesSubDirectory:(int)arg1 path:(id)arg2 updateBlock:(CDUnknownBlockType)arg3;
+- (void)_monitorProfilesDirectory:(int)arg1 path:(id)arg2 forSubDirectory:(id)arg3 updateBlock:(CDUnknownBlockType)arg4;
+- (void)_monitorProfilesDirectory:(int)arg1 path:(id)arg2;
+- (void)_monitorProfilesParentDirectory:(int)arg1 nextPathComponent:(id)arg2 path:(id)arg3;
+- (void)_monitorProfilesPath:(id)arg1;
+- (void)monitorProfilesPath:(id)arg1;
+- (void)monitorDefaultProfilePaths;
+- (id)init;
 
 @end
 
@@ -342,6 +381,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     unsigned int _version;
     unsigned int _minHostVersion;
     unsigned int _maxHostVersion;
+    unsigned int _minCoreSimulatorFrameworkVersion;
+    unsigned int _maxCoreSimulatorFrameworkVersion;
     NSString *_name;
     NSString *_identifier;
     NSBundle *_bundle;
@@ -351,6 +392,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     NSDictionary *_supportedFeatures;
     NSDictionary *_supportedFeaturesConditionalOnDeviceType;
     NSDictionary *_requiredHostServices;
+    NSDictionary *_forwardHostNotifications;
+    NSDictionary *_forwardHostNotificationsWithState;
     NSString *_platformPath;
     NSArray *_supportedProductFamilyIDs;
     NSDictionary *_environment_extra;
@@ -358,9 +401,12 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
     NSDictionary *_aliases;
 }
 
++ (void)supportedRuntimesAddProfilesAtPath:(id)arg1;
 + (id)supportedRuntimesByAlias;
 + (id)supportedRuntimesByIdentifier;
 + (id)supportedRuntimes;
+@property unsigned int maxCoreSimulatorFrameworkVersion; // @synthesize maxCoreSimulatorFrameworkVersion=_maxCoreSimulatorFrameworkVersion;
+@property unsigned int minCoreSimulatorFrameworkVersion; // @synthesize minCoreSimulatorFrameworkVersion=_minCoreSimulatorFrameworkVersion;
 @property unsigned int maxHostVersion; // @synthesize maxHostVersion=_maxHostVersion;
 @property unsigned int minHostVersion; // @synthesize minHostVersion=_minHostVersion;
 @property(copy) NSDictionary *aliases; // @synthesize aliases=_aliases;
@@ -368,6 +414,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 @property(copy) NSDictionary *environment_extra; // @synthesize environment_extra=_environment_extra;
 @property(copy) NSArray *supportedProductFamilyIDs; // @synthesize supportedProductFamilyIDs=_supportedProductFamilyIDs;
 @property(copy) NSString *platformPath; // @synthesize platformPath=_platformPath;
+@property(copy) NSDictionary *forwardHostNotificationsWithState; // @synthesize forwardHostNotificationsWithState=_forwardHostNotificationsWithState;
+@property(copy) NSDictionary *forwardHostNotifications; // @synthesize forwardHostNotifications=_forwardHostNotifications;
 @property(copy) NSDictionary *requiredHostServices; // @synthesize requiredHostServices=_requiredHostServices;
 @property(copy) NSDictionary *supportedFeaturesConditionalOnDeviceType; // @synthesize supportedFeaturesConditionalOnDeviceType=_supportedFeaturesConditionalOnDeviceType;
 @property(copy) NSDictionary *supportedFeatures; // @synthesize supportedFeatures=_supportedFeatures;
@@ -388,7 +436,6 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (CDUnknownFunctionPointerType)launch_sim_register_endpoint;
 - (BOOL)isAvailableWithError:(id *)arg1;
 @property(readonly) BOOL available;
-- (BOOL)verifyRuntime;
 - (id)dyld_simPath;
 - (BOOL)createInitialContentPath:(id)arg1 error:(id *)arg2;
 - (void)createInitialContentPath:(id)arg1;
@@ -400,7 +447,6 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 - (BOOL)supportsDevice:(id)arg1;
 - (id)environment;
 - (id)description;
-- (void)dealloc;
 - (id)initWithBundle:(id)arg1;
 - (id)initWithPath:(id)arg1;
 - (id)init;
@@ -436,3 +482,4 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 + (id)errorWithSimErrno:(int)arg1;
 - (id)xpcDict;
 @end
+
