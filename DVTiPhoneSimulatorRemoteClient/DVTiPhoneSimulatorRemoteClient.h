@@ -104,6 +104,12 @@
 
 @end
 
+typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
+    DTiPhoneSimulatorExternalDisplayTypeWatchRegular = 1,
+    DTiPhoneSimulatorExternalDisplayTypeWatchCompact = 2,
+    DTiPhoneSimulatorExternalDisplayTypeCarPlay = 3
+};
+
 @interface DTiPhoneSimulatorSessionConfig : NSObject <NSCopying>
 {
     BOOL _shouldInstallApplicationToSimulate;
