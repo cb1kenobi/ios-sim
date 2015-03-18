@@ -25,20 +25,20 @@
 #import "CoreSimulator.h"
 #import "version.h"
 
-@interface iPhoneSimulator : NSObject <DTiPhoneSimulatorSessionDelegate> {
+@interface iPhoneSimulator : NSObject<DTiPhoneSimulatorSessionDelegate> {
 @private
-  DTiPhoneSimulatorSystemRoot *sdkRoot;
-  NSFileHandle *stdoutFileHandle;
-  NSFileHandle *stderrFileHandle;
-  BOOL exitOnStartup;
-  BOOL retinaDevice;
-  BOOL tallDevice;
-  BOOL sim_64bit;
-  BOOL startOnly;
-  BOOL verbose;
-  BOOL alreadyPrintedData;
-  BOOL launchFlag;
-  BOOL isXcode6;
+	DTiPhoneSimulatorSystemRoot *sdkRoot;
+	NSFileHandle *stdoutFileHandle;
+	NSFileHandle *stderrFileHandle;
+	BOOL exitOnStartup;
+	BOOL retinaDevice;
+	BOOL tallDevice;
+	BOOL sim_64bit;
+	BOOL startOnly;
+	BOOL verbose;
+	BOOL alreadyPrintedData;
+	BOOL launchFlag;
+	BOOL isXcode6;
 }
 
 - (void)runWithArgc:(int)argc argv:(char **)argv;
