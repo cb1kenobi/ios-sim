@@ -199,7 +199,7 @@ NSString *FindDeveloperDir()
 	fprintf(stderr, "  --exit                          Exit after startup\n");
 	fprintf(stderr, "  --launch-watch-app              Launch the installed application's watch app instead of the main app installed \n");
 	fprintf(stderr, "  --external-display-type <screen type>  The type of the external screen [watch-regular (default), watch-compact] \n");
-	fprintf(stderr, "  --watch-launch-mode <mode>      The mode of the watch app to launch [default, glance, notification] \n");
+	fprintf(stderr, "  --watch-launch-mode <mode>      The mode of the watch app to launch [main (default), glance, notification] \n");
 	fprintf(stderr, "  --watch-notification-payload <path to payload>  The path to the payload that will be delivered in notification mode \n");
 	fprintf(stderr, "  --bundle-id <bundle id>         The bundle id to be launch instead of the main app installed\n");
 	fprintf(stderr, "  --retina                        Start as a retina device(DEPRECATED)\n");
@@ -373,7 +373,8 @@ NSString *FindDeveloperDir()
 				@"state" : [device stateString],
 				@"logpath" : [device logPath],
 				@"deviceType" : [device deviceType].name,
-				@"type" : [device deviceType].productFamily
+				@"type" : [device deviceType].productFamily,
+				@"supportsWatch" : [NSNumber numberWithBool:[device supportsFeature:kIDEWatchCompanionFeature]]
 			}];
 		}
 		if ([deviceArray count] > 0) {

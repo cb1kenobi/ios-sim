@@ -192,6 +192,7 @@ NSString *const keyDoesNotSupportWatch = @"does not support Watch";
 	/*
      [
          {
+             "watchSupport" : true,
              "deviceType" : "iPhone 6",
              "udid" : "EC0BD93B-F601-4C5E-8AF8-F488A879367E",
              "version" : "8.3",
@@ -219,6 +220,7 @@ NSString *const keyDoesNotSupportWatch = @"does not support Watch";
 	}
 
 	for (NSDictionary *sim in obj) {
+		XCTAssertNotNil(sim[@"supportsWatch"]);
 		XCTAssertNotNil(sim[@"deviceType"]);
 		XCTAssertNotNil(sim[@"udid"]);
 		XCTAssertNotNil(sim[@"version"]);
