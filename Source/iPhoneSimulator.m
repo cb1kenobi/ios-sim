@@ -201,7 +201,7 @@ NSString *FindDeveloperDir()
 	fprintf(stderr, "  --external-display-type <screen type>  The type of the external screen [watch-regular (default), watch-compact] \n");
 	fprintf(stderr, "  --watch-launch-mode <mode>      The mode of the watch app to launch [main (default), glance, notification] \n");
 	fprintf(stderr, "  --watch-notification-payload <path to payload>  The path to the payload that will be delivered in notification mode \n");
-	fprintf(stderr, "  --bundle-id <bundle id>         The bundle id to be launch instead of the main app installed\n");
+	fprintf(stderr, "  --launch-bundle-id <bundle id>  The bundle id to be launch instead of the main app installed\n");
 	fprintf(stderr, "  --retina                        Start as a retina device(DEPRECATED)\n");
 	fprintf(stderr, "  --tall                          Start the tall version of the iPhone simulator(4-inch simulator), to be used in conjuction with retina flag(DEPRECATED)\n");
 	fprintf(stderr, "  --sim-64bit                     Start 64 bit version of iOS 7 simulator(DEPRECATED))\n");
@@ -849,7 +849,7 @@ NSString *FindDeveloperDir()
 				i++;
 				NSString *path = [[NSString stringWithUTF8String:argv[i]] expandPath];
 				_watchNotificationPayload = [self notificationPayloadFromFile:path];
-			} else if (strcmp(argv[i], "--bundle-id") == 0) {
+			} else if (strcmp(argv[i], "--launch-bundle-id") == 0) {
 				i++;
 				_bundleID = [NSString stringWithUTF8String:argv[i]];
 			} else if (strcmp(argv[i], "--external-display-type") == 0) {
