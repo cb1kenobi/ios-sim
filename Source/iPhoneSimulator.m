@@ -297,8 +297,8 @@ NSString *FindDeveloperDir()
 		nsprintf(@"Error converting object to json: %@", error);
 		exit(EXIT_FAILURE);
 	}
-	NSString *str = (NSString *)CFStringCreateWithFormatAndArguments(NULL, NULL, (CFStringRef)[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding], nil);
-	return str;
+	NSString *str = (NSString *)CFStringCreateWithFormatAndArguments(NULL, NULL, (CFStringRef)[[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding] autorelease], nil);
+	return [str autorelease];
 }
 
 - (NSDictionary *)launchOptions
@@ -318,7 +318,7 @@ NSString *FindDeveloperDir()
 			_launchOptions[kIDEWatchNotificationPayloadKey] = _watchNotificationPayload;
 		}
 	}
-	return [_launchOptions copy];
+	return [[_launchOptions copy] autorelease];
 }
 
 - (NSDictionary *)notificationPayloadFromFile:(NSString *)path
@@ -382,8 +382,9 @@ NSString *FindDeveloperDir()
 			NSData *JSONData = [NSJSONSerialization dataWithJSONObject:deviceArray
 			                                                   options:NSJSONWritingPrettyPrinted
 			                                                     error:&error];
-			NSString *str = (NSString *)CFStringCreateWithFormatAndArguments(NULL, NULL, (CFStringRef)[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding], nil);
+			NSString *str = (NSString *)CFStringCreateWithFormatAndArguments(NULL, NULL, (CFStringRef)[[[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding] autorelease], nil);
 			fprintf(stdout, "%s", [str UTF8String]);
+			[str release];
 		}
 	} else {
 		fprintf(stdout, "null");
@@ -532,7 +533,7 @@ NSString *FindDeveloperDir()
 - (void)stdioDataIsAvailable:(NSNotification *)notification
 {
 	NSData *data = [[notification userInfo] valueForKey:NSFileHandleNotificationDataItem];
-	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	if (!_alreadyPrintedData) {
 		if ([str length] == 0) {
 			return;

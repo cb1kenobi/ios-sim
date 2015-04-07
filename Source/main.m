@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 	/* Run the loop to handle added input sources, if any */
 	[[NSRunLoop mainRunLoop] run];
 
+	[sim release];
 	[pool release];
 	return 0;
 }
