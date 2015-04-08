@@ -532,6 +532,7 @@ NSString *FindDeveloperDir()
 
 - (void)stdioDataIsAvailable:(NSNotification *)notification
 {
+	[[notification object] readInBackgroundAndNotify];
 	NSData *data = [[notification userInfo] valueForKey:NSFileHandleNotificationDataItem];
 	NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	if (!_alreadyPrintedData) {
@@ -683,6 +684,12 @@ NSString *FindDeveloperDir()
 		if (_verbose) {
 			nsprintf(@"set device to : %@", _device.name);
 		}
+		
+		// This is only necessary for iOS 8+, but it doesn't hurt on  iOS 7
+		// Create the directory first or logs will not show the first time a new simulator is run
+		[[NSFileManager defaultManager] createDirectoryAtPath:[[config.device.dataPath stringByAppendingPathComponent:stdoutPath] stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
+		[[NSFileManager defaultManager] createSymbolicLinkAtPath:[config.device.dataPath stringByAppendingPathComponent:stdoutPath] withDestinationPath:stdoutPath error:NULL];
+		[[NSFileManager defaultManager] createSymbolicLinkAtPath:[config.device.dataPath stringByAppendingPathComponent:stderrPath] withDestinationPath:stderrPath error:NULL];
 	} else {
 		/* Figure out the type of simulator we need to open up.*/
 		NSString *deviceInfoName = [self findDeviceType:family];
