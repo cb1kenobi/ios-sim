@@ -54,6 +54,8 @@
 	NSMutableArray *_launchArgs;
 	NSMutableDictionary *_environment;
 	NSMutableDictionary *_launchOptions;
+
+	BOOL _appInstalled;
 }
 
 - (void)runWithArgc:(int)argc argv:(char **)argv;

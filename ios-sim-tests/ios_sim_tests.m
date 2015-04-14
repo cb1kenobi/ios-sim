@@ -83,6 +83,7 @@ NSString *const keyUnableToFindSimulator = @"Unable to locate the Simulator";
 NSString *const keyAppInstalled = @"App installed successfully";
 NSString *const keyAppLaunched = @"App launched successfully";
 NSString *const keyDoesNotSupportWatch = @"does not support Watch";
+NSString *const keyCouldNotStartSim = @"Could not start simulator session";
 
 @interface ios_sim_tests : XCTestCase {
 	NSString *launchPath;
@@ -306,9 +307,9 @@ NSString *const keyDoesNotSupportWatch = @"does not support Watch";
 	NSArray *args = @[ comLaunch, confPathForAppToInstall, optUDID, confUDID, optExit ];
 	NSString *output = [self outPutForiOSSimWithArgs:args];
 
-	NSString *keyString = keyAppInstalled;
-	BOOL foundInstalled = ([output rangeOfString:keyString].location != NSNotFound);
-	XCTAssert(foundInstalled, "Should find `%@` in output", keyString);
+	NSString *keyString = keyCouldNotStartSim;
+	BOOL foundFailed = ([output rangeOfString:keyString].location != NSNotFound);
+	XCTAssertFalse(foundFailed, "Should not find `%@` in output", keyString);
 }
 
 - (void)test_1070_LaunchApp
@@ -320,9 +321,9 @@ NSString *const keyDoesNotSupportWatch = @"does not support Watch";
 	NSArray *args = @[ comLaunch, confPathForAppToInstall, optUDID, confUDID, optExit ];
 	NSString *output = [self outPutForiOSSimWithArgs:args];
 
-	NSString *keyString = keyAppLaunched;
-	BOOL foundInstalled = ([output rangeOfString:keyString].location != NSNotFound);
-	XCTAssert(foundInstalled, "Should find `%@` in output", keyString);
+    NSString *keyString = keyCouldNotStartSim;
+    BOOL foundFailed = ([output rangeOfString:keyString].location != NSNotFound);
+    XCTAssertFalse(foundFailed, "Should not find `%@` in output", keyString);
 }
 
 - (void)test_1070_LaunchAppWithBundleID
@@ -348,9 +349,9 @@ NSString *const keyDoesNotSupportWatch = @"does not support Watch";
 	NSArray *args = @[ comLaunch, confPathForAppToInstall, optUDID, confUDID, optExit ];
 	NSString *output = [self outPutForiOSSimWithArgs:args];
 
-	NSString *keyString = keyAppInstalled;
-	BOOL foundInstalled = ([output rangeOfString:keyString].location != NSNotFound);
-	XCTAssert(foundInstalled, "Should find `%@` in output", keyString);
+    NSString *keyString = keyCouldNotStartSim;
+    BOOL foundFailed = ([output rangeOfString:keyString].location != NSNotFound);
+    XCTAssertFalse(foundFailed, "Should not find `%@` in output", keyString);
 
 	args = @[ comShowInstalledApps, optUDID, confUDID ];
 	output = [self outPutForiOSSimWithArgs:args];

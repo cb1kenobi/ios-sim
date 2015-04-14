@@ -323,7 +323,7 @@ NSString *FindDeveloperDir()
 
 - (NSDictionary *)notificationPayloadFromFile:(NSString *)path
 {
-	if (![[NSFileManager alloc] fileExistsAtPath:path]) {
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
 		nsfprintf(stderr, @"Payload file not found at: %@", path);
 		exit(EXIT_FAILURE);
 	}
@@ -394,6 +394,9 @@ NSString *FindDeveloperDir()
 
 - (int)showInstalledApps
 {
+	if (_verbose) {
+		nsprintf(@"Showing installed apps");
+	}
 	if (!_device) {
 		nsprintf(@"Device not found");
 		return EXIT_FAILURE;
@@ -511,11 +514,11 @@ NSString *FindDeveloperDir()
 			nsprintf(@"Simulator started (with session)");
 		}
 
-		if (_appPath) {
+		if (_appPath && !_appInstalled) {
 			[self installApp];
 		} else if (_showInstalledApps) {
 			exit([self showInstalledApps]);
-		} else {
+		} else if (_bundleID) {
 			[self launchApp];
 		}
 
@@ -560,11 +563,11 @@ NSString *FindDeveloperDir()
 		}
 		int fd = open([*path UTF8String], O_RDONLY | O_NDELAY);
 		*fileHandle = [[[NSFileHandle alloc] initWithFileDescriptor:fd] retain];
-		[*fileHandle readInBackgroundAndNotify];
 		[[NSNotificationCenter defaultCenter] addObserver:self
 		                                         selector:@selector(stdioDataIsAvailable:)
 		                                             name:NSFileHandleReadCompletionNotification
 		                                           object:*fileHandle];
+		[*fileHandle readInBackgroundAndNotify];
 	}
 }
 
@@ -592,6 +595,7 @@ NSString *FindDeveloperDir()
 	DTiPhoneSimulatorSessionConfig *config;
 	DTiPhoneSimulatorSession *session;
 	NSError *error = nil;
+	_appInstalled = NO;
 	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
 	if (!_startOnly && !_showInstalledApps) {
 		if (![fileManager fileExistsAtPath:_appPath]) {
@@ -615,6 +619,13 @@ NSString *FindDeveloperDir()
 	/* Set up the session configuration */
 	config = [[[[self FindClassByName:@"DTiPhoneSimulatorSessionConfig"] alloc] init] autorelease];
 
+	if (!_launchWatchApp && !_showInstalledApps && !_bundleID) {
+		// If we are not launching the watch app, let the session launch it so we can get the logs
+		DTiPhoneSimulatorApplicationSpecifier *appSpec = [[self FindClassByName:@"DTiPhoneSimulatorApplicationSpecifier"] specifierWithApplicationPath:_appPath];
+		[config setApplicationToSimulateOnStart:appSpec];
+		_appInstalled = YES;
+	}
+
 	/* Set external display type */
 	if (_launchWatchApp) {
 		// Default to Watch Regular
@@ -632,19 +643,23 @@ NSString *FindDeveloperDir()
 	[config setSimulatedSystemRoot:_sdkRoot];
 	[config setSimulatedApplicationShouldWaitForDebugger:NO];
 
-	if (stderrPath) {
-		_stderrFileHandle = nil;
-	} else if (!_exitOnStartup) {
-		[self createStdioFIFO:&_stderrFileHandle ofType:@"stderr" atPath:&stderrPath];
-	}
-	[config setSimulatedApplicationStdErrPath:stderrPath];
+	// Note: if the memory and CPU usage spikes, it is likely because the file or symlinked
+	// file being read does not exist
+	if (!_launchWatchApp && !_bundleID) {
+		if (stderrPath) {
+			_stderrFileHandle = nil;
+		} else if (!_exitOnStartup) {
+			[self createStdioFIFO:&_stderrFileHandle ofType:@"stderr" atPath:&stderrPath];
+		}
+		[config setSimulatedApplicationStdErrPath:stderrPath];
 
-	if (stdoutPath) {
-		_stdoutFileHandle = nil;
-	} else if (!_exitOnStartup) {
-		[self createStdioFIFO:&_stdoutFileHandle ofType:@"stdout" atPath:&stdoutPath];
+		if (stdoutPath) {
+			_stdoutFileHandle = nil;
+		} else if (!_exitOnStartup) {
+			[self createStdioFIFO:&_stdoutFileHandle ofType:@"stdout" atPath:&stdoutPath];
+		}
+		[config setSimulatedApplicationStdOutPath:stdoutPath];
 	}
-	[config setSimulatedApplicationStdOutPath:stdoutPath];
 
 	[config setLocalizedClientName:@"ios-sim"];
 
@@ -684,7 +699,7 @@ NSString *FindDeveloperDir()
 		if (_verbose) {
 			nsprintf(@"set device to : %@", _device.name);
 		}
-		
+
 		// This is only necessary for iOS 8+, but it doesn't hurt on  iOS 7
 		// Create the directory first or logs will not show the first time a new simulator is run
 		[[NSFileManager defaultManager] createDirectoryAtPath:[[config.device.dataPath stringByAppendingPathComponent:stdoutPath] stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
@@ -705,6 +720,9 @@ NSString *FindDeveloperDir()
 	}
 	timeout = MIN(500, MAX(90, timeout));
 
+	if (_verbose) {
+		nsprintf(@"Launching simulator");
+	}
 	if (![session requestStartWithConfig:config timeout:timeout error:&error]) {
 		nsprintf(@"Could not start simulator session:");
 		exit(EXIT_FAILURE);
