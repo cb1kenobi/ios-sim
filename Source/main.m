@@ -27,16 +27,18 @@
 /*
  * Runs the iPhoneSimulator backed by a main runloop.
  */
-int main (int argc, char *argv[]) {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    iPhoneSimulator *sim = [[iPhoneSimulator alloc] init];
-    
-    /* Execute command line handler */
-    [sim runWithArgc: argc argv: argv];
+int main(int argc, char *argv[])
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	iPhoneSimulator *sim = [[iPhoneSimulator alloc] init];
 
-    /* Run the loop to handle added input sources, if any */
-    [[NSRunLoop mainRunLoop] run];
+	/* Execute command line handler */
+	[sim runWithArgc:argc argv:argv];
 
-    [pool release];
-    return 0;
+	/* Run the loop to handle added input sources, if any */
+	[[NSRunLoop mainRunLoop] run];
+
+	[sim release];
+	[pool release];
+	return 0;
 }

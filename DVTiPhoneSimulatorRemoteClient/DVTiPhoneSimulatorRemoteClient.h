@@ -9,24 +9,24 @@
 #pragma mark -
 
 //
-// File: /Applications/Xcode6-Beta3.app/Contents/SharedFrameworks/DVTiPhoneSimulatorRemoteClient.framework/Versions/A/DVTiPhoneSimulatorRemoteClient
-// UUID: 396DE2C3-5423-3DC0-BB1E-1CC576BD2D20
+// File: /Applications/Xcode_6.3_beta_2/Xcode-beta.app/Contents/SharedFrameworks/DVTiPhoneSimulatorRemoteClient.framework/Versions/A/DVTiPhoneSimulatorRemoteClient
+// UUID: A30D747E-345C-3449-AA62-BCA9EE6CDC22
 //
 //                           Arch: x86_64
 //                Current version: 12.0.0
 //          Compatibility version: 1.0.0
-//                 Source version: 6204.4.0.0.0
+//                 Source version: 7519.3.0.0.0
 //       Minimum Mac OS X version: 10.9.0
 //                    SDK version: 10.10.0
 //
 // Objective-C Garbage Collection: Unsupported
 //
 //                       Run path: @loader_path/../../../
-//                               = /Applications/Xcode6-Beta3.app/Contents/SharedFrameworks
+//                               = /Applications/Xcode_6.3_beta_2/Xcode-beta.app/Contents/SharedFrameworks
 //                       Run path: @loader_path/../../../../PrivateFrameworks/
-//                               = /Applications/Xcode6-Beta3.app/Contents/PrivateFrameworks
+//                               = /Applications/Xcode_6.3_beta_2/Xcode-beta.app/Contents/PrivateFrameworks
 //                       Run path: @loader_path/../../../../Developer/Library/PrivateFrameworks/
-//                               = /Applications/Xcode6-Beta3.app/Contents/Developer/Library/PrivateFrameworks
+//                               = /Applications/Xcode_6.3_beta_2/Xcode-beta.app/Contents/Developer/Library/PrivateFrameworks
 //
 
 
@@ -61,109 +61,6 @@
 
 @end
 
-
-@interface SimRuntime (DVTAdditions)
-+ (id)dvt_runtimeFromSDKRoot:(id)arg1;
-@end
-
-@interface SimDeviceType (DVTAdditions)
-- (id)dvt_latestRuntime;
-- (id)dvt_supportedArchs;
-- (id)dvt_supportedArchStrings;
-- (_Bool)dvt_has64BitArch;
-@end
-
-@interface SimDeviceSet (DVTAdditions)
-- (id)dvt_registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
-- (id)dvt_registerNotificationHandler:(CDUnknownBlockType)arg1;
-@end
-
-@interface SimDevice (DVTAdditions)
-- (id)dvt_launchApplicationWithBundleIdentifier:(id)arg1 andOptions:(id)arg2;
-- (id)dvt_launchApplicationWithBundleIdentifier:(id)arg1;
-- (id)dvt_spawnExecutableAtPath:(id)arg1 withOptions:(id)arg2 andTerminationHandler:(CDUnknownBlockType)arg3;
-- (id)dvt_spawnExecutableAtPath:(id)arg1 withOptions:(id)arg2;
-- (id)dvt_uninstallApplicationWithBundleIdentifier:(id)arg1 andOptions:(id)arg2;
-- (id)dvt_uninstallApplicationWithBundleIdentifier:(id)arg1;
-- (id)dvt_installApplicationAtPath:(id)arg1 withOptions:(id)arg2;
-- (id)dvt_installApplicationAtPath:(id)arg1;
-- (id)dvt_restoreContentsAndSettingsFrom:(id)arg1;
-- (id)dvt_eraseContentsAndSettings;
-- (id)dvt_shutdown;
-- (id)dvt_bootWithOptions:(id)arg1;
-- (id)dvt_boot;
-- (id)dvt_notifyOfBootOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
-- (id)dvt_registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
-- (id)dvt_registerNotificationHandler:(CDUnknownBlockType)arg1;
-@end
-
-
-
-@interface DVTiPhoneSimulatorMessenger : NSObject <DVTInvalidation>
-{
-    NSObject<OS_dispatch_source> *_pidDispatchSource;
-    DTiPhoneSimulatorSession *_session;
-    CDUnknownBlockType _readyMessageHandler;
-    CDUnknownBlockType _runningMessageHandler;
-    CDUnknownBlockType _appDidLaunchMessageHandler;
-    CDUnknownBlockType _toolDidLaunchMessageHandler;
-}
-
-+ (id)messengerForSession:(id)arg1;
-+ (void)initialize;
-@property(copy, nonatomic) CDUnknownBlockType toolDidLaunchMessageHandler; // @synthesize toolDidLaunchMessageHandler=_toolDidLaunchMessageHandler;
-@property(copy, nonatomic) CDUnknownBlockType appDidLaunchMessageHandler; // @synthesize appDidLaunchMessageHandler=_appDidLaunchMessageHandler;
-@property(copy, nonatomic) CDUnknownBlockType runningMessageHandler; // @synthesize runningMessageHandler=_runningMessageHandler;
-@property(copy, nonatomic) CDUnknownBlockType readyMessageHandler; // @synthesize readyMessageHandler=_readyMessageHandler;
-@property(readonly) __weak DTiPhoneSimulatorSession *session; // @synthesize session=_session;
-- (void)doUbiquityFetchEvent;
-- (void)doFetchEventForPID:(int)arg1;
-- (void)backgroundAllApps:(int)arg1;
-- (void)startSimulatorToolSessionWithParameters:(id)arg1;
-- (void)didReceiveSimulatorRunningNote:(id)arg1;
-- (void)didReceiveSimulatorReadyNote:(id)arg1;
-- (void)stopSimulatingLocation;
-- (void)startSimulatingLocationWithLatitude:(id)arg1 longitute:(id)arg2;
-- (void)endSimulatorSessionWithPID:(int)arg1;
-- (void)startSimulatorSessionWithRequestInfo:(id)arg1;
-- (id)spawnToolWithConfig:(id)arg1;
-- (id)launchApplicationWithConfig:(id)arg1;
-- (id)installApplicationWithConfig:(id)arg1;
-- (id)startSessionWithConfig:(id)arg1;
-- (void)clearAllMessageHandlers;
-- (void)waitPID:(int)arg1 withAppPIDExitedMessagedHandler:(CDUnknownBlockType)arg2;
-- (void)disconnectFromService;
-- (BOOL)connectToServiceWithSessionOnLaunch:(BOOL)arg1 simulatorPID:(int *)arg2 error:(id *)arg3;
-- (id)initWithSession:(id)arg1;
-- (void)primitiveInvalidate;
-
-// Remaining properties
-@property(retain) DVTStackBacktrace *creationBacktrace;
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly, copy) NSString *description;
-
-@property(readonly) DVTStackBacktrace *invalidationBacktrace;
-@property(readonly) Class superclass;
-@property(readonly, nonatomic, getter=isValid) BOOL valid;
-
-@end
-
-@interface DVTiPhoneSimulatorDistNoteMessenger : DVTiPhoneSimulatorMessenger
-{
-    DVTNotificationToken *_appDidLaunchMessageToken;
-    DVTNotificationToken *_toolDidLaunchMessageToken;
-}
-
-+ (void)initialize;
-- (void)backgroundAllApps:(int)arg1;
-- (void)startSimulatorToolSessionWithParameters:(id)arg1;
-- (void)startSimulatorSessionWithRequestInfo:(id)arg1;
-- (void)setToolDidLaunchMessageHandler:(CDUnknownBlockType)arg1;
-- (void)setAppDidLaunchMessageHandler:(CDUnknownBlockType)arg1;
-- (void)primitiveInvalidate;
-
-@end
-
 @interface DTiPhoneSimulatorSession : NSObject <DVTInvalidation>
 {
     int _simulatedApplicationPID;
@@ -173,13 +70,9 @@
     NSString *_uuid;
     DTiPhoneSimulatorSessionConfig *_sessionConfig;
     long long _sessionLifecycleProgress;
-    NSTimer *_timeoutTimer;
-    DVTiPhoneSimulatorMessenger *_messenger;
 }
 
 + (void)initialize;
-@property(retain) DVTiPhoneSimulatorMessenger *messenger; // @synthesize messenger=_messenger;
-@property(retain, nonatomic) NSTimer *timeoutTimer; // @synthesize timeoutTimer=_timeoutTimer;
 @property(nonatomic) long long sessionLifecycleProgress; // @synthesize sessionLifecycleProgress=_sessionLifecycleProgress;
 @property(copy, nonatomic) DTiPhoneSimulatorSessionConfig *sessionConfig; // @synthesize sessionConfig=_sessionConfig;
 @property(readonly, copy, nonatomic) NSString *uuid; // @synthesize uuid=_uuid;
@@ -187,25 +80,16 @@
 @property(copy) NSString *simulatedAppPath; // @synthesize simulatedAppPath=_simulatedAppPath;
 @property int simulatedApplicationPID; // @synthesize simulatedApplicationPID=_simulatedApplicationPID;
 @property(retain, nonatomic) id <DTiPhoneSimulatorSessionDelegate> delegate; // @synthesize delegate=_delegate;
+- (int)connectToServiceWithError:(id *)arg1;
 - (void)doUbiquityFetchEvent;
 - (void)doFetchEventForPID:(int)arg1;
 - (void)backgroundAllApps:(int)arg1;
-- (id)_invalidConfigError;
-- (void)_endSimulatorSession;
-- (void)_callDelegateResponseFromSessionStartedWithPID:(int)arg1 andError:(id)arg2;
-- (id)_sessionStartRequestInfoFromConfig:(id)arg1 withError:(id *)arg2;
-- (BOOL)_startToolSessionInSimulatorWithError:(id *)arg1;
-- (BOOL)_startApplicationSessionInSimulatorWithError:(id *)arg1;
-- (BOOL)_startBasicSessionInSimulatorWithError:(id *)arg1;
 - (BOOL)_startSessionInSimulatorWithError:(id *)arg1;
-- (void)_handleSessionEndedWithError:(id)arg1;
-- (void)_timeoutElapsed:(id)arg1;
 - (BOOL)attachedToTargetWithConfig:(id)arg1 error:(id *)arg2;
 - (void)stopLocationSimulation;
 - (void)simulateLocationWithLatitude:(id)arg1 longitude:(id)arg2;
 - (void)requestEndWithTimeout:(double)arg1;
 - (BOOL)requestStartWithConfig:(id)arg1 timeout:(double)arg2 error:(id *)arg3;
-- (BOOL)_setUpSimulatorMessengerWithConfig:(id)arg1 error:(id *)arg2;
 @property(readonly, copy) NSString *description;
 - (id)init;
 - (void)primitiveInvalidate;
@@ -213,11 +97,18 @@
 // Remaining properties
 @property(retain) DVTStackBacktrace *creationBacktrace;
 @property(readonly, copy) NSString *debugDescription;
+@property(readonly) unsigned long long hash;
 @property(readonly) DVTStackBacktrace *invalidationBacktrace;
 @property(readonly) Class superclass;
 @property(readonly, nonatomic, getter=isValid) BOOL valid;
 
 @end
+
+typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
+    DTiPhoneSimulatorExternalDisplayTypeWatchRegular = 1,
+    DTiPhoneSimulatorExternalDisplayTypeWatchCompact = 2,
+    DTiPhoneSimulatorExternalDisplayTypeCarPlay = 3
+};
 
 @interface DTiPhoneSimulatorSessionConfig : NSObject <NSCopying>
 {
@@ -236,6 +127,7 @@
     NSFileHandle *_stdinFileHandle;
     NSFileHandle *_stdoutFileHandle;
     NSFileHandle *_stderrFileHandle;
+    long long _externalDisplayType;
     NSString *_simulatedDeviceInfoName;
     NSString *_localizedClientName;
     NSNumber *_simulatedDeviceFamily;
@@ -249,6 +141,7 @@
 @property(copy) NSNumber *simulatedDeviceFamily; // @synthesize simulatedDeviceFamily=_simulatedDeviceFamily;
 @property(copy) NSString *localizedClientName; // @synthesize localizedClientName=_localizedClientName;
 @property(copy, nonatomic) NSString *simulatedDeviceInfoName; // @synthesize simulatedDeviceInfoName=_simulatedDeviceInfoName;
+@property long long externalDisplayType; // @synthesize externalDisplayType=_externalDisplayType;
 @property BOOL launchForBackgroundFetch; // @synthesize launchForBackgroundFetch=_launchForBackgroundFetch;
 @property(retain) NSFileHandle *stderrFileHandle; // @synthesize stderrFileHandle=_stderrFileHandle;
 @property(retain) NSFileHandle *stdoutFileHandle; // @synthesize stdoutFileHandle=_stdoutFileHandle;
@@ -264,8 +157,10 @@
 @property(copy) NSString *simulatedArchitecture; // @synthesize simulatedArchitecture=_simulatedArchitecture;
 @property(retain, nonatomic) SimRuntime *runtime; // @synthesize runtime=_runtime;
 - (id)description;
-@property(copy, nonatomic) DTiPhoneSimulatorSystemRoot *simulatedSystemRoot;
+@property(retain, nonatomic) DTiPhoneSimulatorSystemRoot *simulatedSystemRoot;
 @property(retain, nonatomic) SimDevice *device; // @synthesize device=_device;
+@property(readonly, copy) NSDictionary *toolSpawnOptions;
+@property(readonly, copy) NSDictionary *appLaunchOptions;
 - (id)copyWithZone:(struct _NSZone *)arg1;
 - (id)init;
 
@@ -344,20 +239,39 @@
 
 @end
 
-@interface DVTiPhoneSimulatorCoreSimMessenger : DVTiPhoneSimulatorMessenger
-{
-}
-
-- (void)doUbiquityFetchEvent;
-- (void)doFetchEventForPID:(int)arg1;
-- (void)backgroundAllApps:(int)arg1;
-- (void)stopSimulatingLocation;
-- (void)startSimulatingLocationWithLatitude:(id)arg1 longitute:(id)arg2;
-- (id)spawnToolWithConfig:(id)arg1;
-- (id)launchApplicationWithConfig:(id)arg1;
-- (id)installApplicationWithConfig:(id)arg1;
-- (id)startSessionWithConfig:(id)arg1;
-- (void)startSimulatorToolSessionWithParameters:(id)arg1;
-- (void)startSimulatorSessionWithRequestInfo:(id)arg1;
-
+@interface SimRuntime (DVTAdditions)
++ (id)dvt_runtimeFromSDKRoot:(id)arg1;
 @end
+
+@interface SimDeviceType (DVTAdditions)
+- (id)dvt_latestRuntime;
+- (id)dvt_supportedArchs;
+- (id)dvt_supportedArchStrings;
+- (_Bool)dvt_has64BitArch;
+@end
+
+@interface SimDeviceSet (DVTAdditions)
+- (id)dvt_registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
+- (id)dvt_registerNotificationHandler:(CDUnknownBlockType)arg1;
+@end
+
+@interface SimDevice (DVTAdditions)
+- (id)dvt_launchApplicationWithBundleIdentifier:(id)arg1 andOptions:(id)arg2;
+- (id)dvt_launchApplicationWithBundleIdentifier:(id)arg1;
+- (id)dvt_spawnExecutableAtPath:(id)arg1 withOptions:(id)arg2 andTerminationHandler:(CDUnknownBlockType)arg3;
+- (id)dvt_spawnExecutableAtPath:(id)arg1 withOptions:(id)arg2;
+- (id)dvt_applicationIsInstalledWithBundleIdentifier:(id)arg1;
+- (id)dvt_uninstallApplicationWithBundleIdentifier:(id)arg1 andOptions:(id)arg2;
+- (id)dvt_uninstallApplicationWithBundleIdentifier:(id)arg1;
+- (id)dvt_installApplicationAtPath:(id)arg1 withOptions:(id)arg2;
+- (id)dvt_installApplicationAtPath:(id)arg1;
+- (id)dvt_restoreContentsAndSettingsFrom:(id)arg1;
+- (id)dvt_eraseContentsAndSettings;
+- (id)dvt_shutdown;
+- (id)dvt_bootWithOptions:(id)arg1;
+- (id)dvt_boot;
+- (id)dvt_notifyOfBootOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
+- (id)dvt_registerNotificationHandlerOnQueue:(id)arg1 handler:(CDUnknownBlockType)arg2;
+- (id)dvt_registerNotificationHandler:(CDUnknownBlockType)arg1;
+@end
+
