@@ -29,6 +29,7 @@
 
 + (void)loadSimulatorFramework:(int)argc argv:(char **)argv;
 + (NSArray *)getSimulators;
++ (void)printAvailableSimulators:(NSArray *)sims;
 + (void)stdioDataIsAvailable:(NSNotification *)notification;
 + (void)createStdioFIFO:(NSFileHandle * __strong *)fileHandle ofType:(NSString *)type atPath:(NSString * __strong *)path;
 
@@ -58,11 +59,6 @@
  */
 - (void)launch
 {
-	if (_simDevice == nil) {
-		ERROR_LOG("Missing required --udid <udid> argument.\n");
-		exit(EXIT_FAILURE);
-	}
-	
 	DTiPhoneSimulatorSessionConfig *config = [[iOSSimulator findClassByName:@"DTiPhoneSimulatorSessionConfig"] new];
 
 	// if we're installing an app without launching its watch extension, then we just
@@ -179,6 +175,7 @@
 + (void)launchCommand:(int)argc argv:(char **)argv
 {
 	[iOSSimulator loadSimulatorFramework:argc argv:argv];
+	NSArray *sims = [iOSSimulator getSimulators];
 	iOSSimulator *sim = [iOSSimulator new];
 	
 	for (int i = 1; i < argc; i++) {
@@ -277,18 +274,19 @@
 		} else if (strncmp(argv[i], "--udid", 6) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --udid value.\n");
+				[self printAvailableSimulators:sims];
 				exit(EXIT_FAILURE);
 			}
 			NSString* udid = [NSString stringWithUTF8String:argv[i]];
-			NSArray *sims = [iOSSimulator getSimulators];
-			for (id _sim in sims) {
-				if ([[_sim UDID].UUIDString isEqualToString:udid]) {
-					sim.simDevice = _sim;
+			for (SimDevice *s in sims) {
+				if ([[s UDID].UUIDString isEqualToString:udid]) {
+					sim.simDevice = s;
 					break;
 				}
 			}
 			if (sim.simDevice == nil) {
 				ERROR_LOG("Invalid simulator udid: %s\n", argv[i]);
+				[self printAvailableSimulators:sims];
 				exit(EXIT_FAILURE);
 			}
 
@@ -357,6 +355,12 @@
 			sim.stderrPath = [[NSString stringWithUTF8String:argv[i]] expandPath];
 		}
 	}
+	
+	if (sim.simDevice == nil) {
+		ERROR_LOG("Missing required --udid <udid> argument.\n");
+		[self printAvailableSimulators:sims];
+		exit(EXIT_FAILURE);
+	}
 
 	if (sim.launchWatchApp && !sim.appPath) {
 		ERROR_LOG("--launch-watch-app requires --install-app <path> to be set\n");
@@ -377,6 +381,7 @@
 + (void)showInstalledAppsCommand:(int)argc argv:(char **)argv
 {
 	[iOSSimulator loadSimulatorFramework:argc argv:argv];
+	NSArray *sims = [iOSSimulator getSimulators];
 	iOSSimulator *sim = [iOSSimulator new];
 	sim.showInstalledApps = YES;
 	
@@ -402,18 +407,19 @@
 		} else if (strncmp(argv[i], "--udid", 6) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --udid value.\n");
+				[self printAvailableSimulators:sims];
 				exit(EXIT_FAILURE);
 			}
-			NSString* udid = [NSString stringWithUTF8String:argv[i]];
-			NSArray *sims = [iOSSimulator getSimulators];
-			for (id _sim in sims) {
-				if ([[_sim UDID].UUIDString isEqualToString:udid]) {
-					sim.simDevice = _sim;
+			NSString *udid = [NSString stringWithUTF8String:argv[i]];
+			for (SimDevice *s in sims) {
+				if ([[s UDID].UUIDString isEqualToString:udid]) {
+					sim.simDevice = s;
 					break;
 				}
 			}
 			if (sim.simDevice == nil) {
 				ERROR_LOG("Invalid simulator udid: %s\n", argv[i]);
+				[self printAvailableSimulators:sims];
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -421,6 +427,7 @@
 	
 	if (sim.simDevice == nil) {
 		ERROR_LOG("Missing required --udid <udid> argument.\n");
+		[self printAvailableSimulators:sims];
 		exit(EXIT_FAILURE);
 	}
 	
@@ -449,7 +456,7 @@
 	NSError *error = nil;
 	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:sdkArray options:NSJSONWritingPrettyPrinted error:&error];
 	NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-	LOG("%s\n", [jsonString UTF8String]);
+	OUT("%s\n", [jsonString UTF8String]);
 }
 
 /**
@@ -476,7 +483,7 @@
 	NSError *error = nil;
 	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:sims options:NSJSONWritingPrettyPrinted error:&error];
 	NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-	LOG("%s\n", [jsonString UTF8String]);
+	OUT("%s\n", [jsonString UTF8String]);
 }
 
 /**
@@ -633,6 +640,17 @@
 }
 
 /**
+ Pretty prints a list of all available simulators.
+ */
++ (void)printAvailableSimulators:(NSArray *)sims
+{
+	LOG("\nAvailable Simulators:\n");
+	for (SimDevice *s in sims) {
+		LOG("  %s    %s\n", [[s UDID].UUIDString UTF8String], [[s descriptiveName] UTF8String]);
+	}
+}
+
+/**
  Waits for data on stdio, then renders it.
  */
 + (void)stdioDataIsAvailable:(NSNotification *)notification
@@ -641,7 +659,7 @@
 	NSData *data = [[notification userInfo] valueForKey:NSFileHandleNotificationDataItem];
 	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	if ([str length] > 0) {
-		LOG("%s", [str UTF8String]);
+		OUT("%s", [str UTF8String]);
 		fflush(stdout);
 	}
 }

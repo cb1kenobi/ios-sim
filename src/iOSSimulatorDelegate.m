@@ -195,7 +195,7 @@
 	
 	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:installedApps options:NSJSONWritingPrettyPrinted error:&error];
 	NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-	LOG("%s\n", [jsonString UTF8String]);
+	OUT("%s\n", [jsonString UTF8String]);
 }
 
 - (void)exitError
