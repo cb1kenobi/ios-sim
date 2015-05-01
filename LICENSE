@@ -1,6 +1,6 @@
 ======================================
-Appcelerator Titanium CLI 
-Copyright (c) 2012-2013 Appcelerator, Inc.
+ios-sim
+Copyright (c) 2012-2015 Appcelerator, Inc.
 ======================================
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -223,22 +223,22 @@ limitations under the License.
 
 
 
-PRIVACY NOTICE 
+PRIVACY NOTICE
 ==============
 
 At Appcelerator, we’re committed to transparency and we respect your privacy.
 This software collects information about you and your end-users of any
-applications that you build. The information we collect is used to 
+applications that you build. The information we collect is used to
 improve the content of our Products, Websites and Applications built using
-our technology (collectively and individually, the "Software"), used to 
-customize the content and/or layout of our Software for each individual 
-visitor, used to notify users about updates to our Software, used by us to 
-contact users for marketing purposes, disclosed when legally required to 
-do so, at the request of governmental authorities conducting an investigation, 
-to verify or enforce compliance with the policies governing our Software and 
-applicable laws or to protect against misuse or unauthorized use of our 
-Software, to a successor entity in connection with a corporate merger, 
-consolidation, sale of assets or other corporate change respecting the 
+our technology (collectively and individually, the "Software"), used to
+customize the content and/or layout of our Software for each individual
+visitor, used to notify users about updates to our Software, used by us to
+contact users for marketing purposes, disclosed when legally required to
+do so, at the request of governmental authorities conducting an investigation,
+to verify or enforce compliance with the policies governing our Software and
+applicable laws or to protect against misuse or unauthorized use of our
+Software, to a successor entity in connection with a corporate merger,
+consolidation, sale of assets or other corporate change respecting the
 Software.
 
 
@@ -281,12 +281,40 @@ Modifications made by the following entities are licensed as above:
 - Eloy Duran, Fingertips <eloy@fngtps.com>
 
 ==============================================================================
+==============================================================================
 
-Chromium Project Owners : 
+Chromium Project Owners :
 lliabraa@chromium.org
 rohitrao@chromium.org
 stuartmorgan@chromium.org
 
 - http://src.chromium.org/chrome/trunk/src/testing/iossim/
+
+==============================================================================
+==============================================================================
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Eloy Durán <eloy.de.enige@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+- https://github.com/alloy/watch-sim
 
 ==============================================================================

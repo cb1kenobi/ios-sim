@@ -41,10 +41,10 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimDeviceNotificationManager : NSObject <SimDeviceNotifier>
 {
-    NSObject<OS_dispatch_queue> *_handlersQueue;
-    NSMutableDictionary *_handlers;
-    unsigned long long _next_regID;
-    NSObject<OS_dispatch_queue> *_sendQueue;
+	NSObject<OS_dispatch_queue> *_handlersQueue;
+	NSMutableDictionary *_handlers;
+	unsigned long long _next_regID;
+	NSObject<OS_dispatch_queue> *_sendQueue;
 }
 
 @property(retain) NSObject<OS_dispatch_queue> *sendQueue; // @synthesize sendQueue=_sendQueue;
@@ -61,8 +61,8 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimVerifier : NSObject
 {
-    NSObject<OS_xpc_object> *_serviceConnection;
-    NSObject<OS_dispatch_queue> *_serviceConnectionQueue;
+	NSObject<OS_xpc_object> *_serviceConnection;
+	NSObject<OS_dispatch_queue> *_serviceConnectionQueue;
 }
 
 + (id)verificationError:(int)arg1;
@@ -80,9 +80,9 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimServiceConnectionManager : NSObject
 {
-    NSObject<OS_xpc_object> *_serviceConnection;
-    NSObject<OS_dispatch_queue> *_serviceConnectionQueue;
-    NSDate *_lastConnectionTime;
+	NSObject<OS_xpc_object> *_serviceConnection;
+	NSObject<OS_dispatch_queue> *_serviceConnectionQueue;
+	NSDate *_lastConnectionTime;
 }
 
 + (void)useService:(BOOL)arg1;
@@ -99,24 +99,24 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimDevice : NSObject <SimDeviceNotifier>
 {
-    unsigned long long _state;
-    NSString *_name;
-    NSDictionary *_uiWindowProperties;
-    NSString *_deviceTypeIdentifier;
-    NSString *_runtimeIdentifier;
-    NSUUID *_UDID;
-    SimDeviceSet *_deviceSet;
-    SimServiceConnectionManager *_connectionManager;
-    NSString *_setPath;
-    SimDeviceNotificationManager *_notificationManager;
-    NSObject<OS_dispatch_queue> *_bootstrapQueue;
-    NSMutableDictionary *_registeredServices;
-    NSObject<OS_dispatch_queue> *_stateVariableQueue;
-    NSMachPort *_deathTriggerPort;
-    NSMachPort *_hostSupportPort;
-    NSMachPort *_simBridgePort;
-    NSDistantObject<SimBridge> *_simBridgeDistantObject;
-    NSMutableArray *_darwinNotificationTokens;
+	unsigned long long _state;
+	NSString *_name;
+	NSDictionary *_uiWindowProperties;
+	NSString *_deviceTypeIdentifier;
+	NSString *_runtimeIdentifier;
+	NSUUID *_UDID;
+	SimDeviceSet *_deviceSet;
+	SimServiceConnectionManager *_connectionManager;
+	NSString *_setPath;
+	SimDeviceNotificationManager *_notificationManager;
+	NSObject<OS_dispatch_queue> *_bootstrapQueue;
+	NSMutableDictionary *_registeredServices;
+	NSObject<OS_dispatch_queue> *_stateVariableQueue;
+	NSMachPort *_deathTriggerPort;
+	NSMachPort *_hostSupportPort;
+	NSMachPort *_simBridgePort;
+	NSDistantObject<SimBridge> *_simBridgeDistantObject;
+	NSMutableArray *_darwinNotificationTokens;
 }
 
 + (BOOL)isValidState:(unsigned long long)arg1;
@@ -242,26 +242,26 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimDeviceType : NSObject
 {
-    float _mainScreenScale;
-    unsigned int _minRuntimeVersion;
-    unsigned int _maxRuntimeVersion;
-    unsigned int _minCoreSimulatorFrameworkVersion;
-    unsigned int _maxCoreSimulatorFrameworkVersion;
-    NSString *_name;
-    NSString *_identifier;
-    NSString *_modelIdentifier;
-    NSBundle *_bundle;
-    NSArray *_supportedArchs;
-    NSArray *_supportedProductFamilyIDs;
-    NSDictionary *_capabilities;
-    NSString *_springBoardConfigName;
-    NSString *_productClass;
-    NSDictionary *_environment_extra;
-    NSDictionary *_aliases;
-    NSDictionary *_supportedFeatures;
-    NSDictionary *_supportedFeaturesConditionalOnRuntime;
-    struct CGSize _mainScreenSize;
-    struct CGSize _mainScreenDPI;
+	float _mainScreenScale;
+	unsigned int _minRuntimeVersion;
+	unsigned int _maxRuntimeVersion;
+	unsigned int _minCoreSimulatorFrameworkVersion;
+	unsigned int _maxCoreSimulatorFrameworkVersion;
+	NSString *_name;
+	NSString *_identifier;
+	NSString *_modelIdentifier;
+	NSBundle *_bundle;
+	NSArray *_supportedArchs;
+	NSArray *_supportedProductFamilyIDs;
+	NSDictionary *_capabilities;
+	NSString *_springBoardConfigName;
+	NSString *_productClass;
+	NSDictionary *_environment_extra;
+	NSDictionary *_aliases;
+	NSDictionary *_supportedFeatures;
+	NSDictionary *_supportedFeaturesConditionalOnRuntime;
+	struct CGSize _mainScreenSize;
+	struct CGSize _mainScreenDPI;
 }
 
 + (void)supportedDevicesAddProfilesAtPath:(id)arg1;
@@ -307,12 +307,12 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimDeviceSet : NSObject <SimDeviceNotifier>
 {
-    NSString *_setPath;
-    NSObject<OS_dispatch_queue> *_devicesQueue;
-    NSMutableDictionary *__devicesByUDID;
-    NSMutableDictionary *_devicesNotificationRegIDs;
-    SimServiceConnectionManager *_connectionManager;
-    SimDeviceNotificationManager *_notificationManager;
+	NSString *_setPath;
+	NSObject<OS_dispatch_queue> *_devicesQueue;
+	NSMutableDictionary *__devicesByUDID;
+	NSMutableDictionary *_devicesNotificationRegIDs;
+	SimServiceConnectionManager *_connectionManager;
+	SimDeviceNotificationManager *_notificationManager;
 }
 
 + (void)resubscribeAllToNotifications;
@@ -356,9 +356,9 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimProfilesPathMonitor : NSObject
 {
-    NSObject<OS_dispatch_queue> *_monitorQueue;
-    NSMutableArray *_leafMonitorSources;
-    NSMutableDictionary *_monitoredPaths;
+	NSObject<OS_dispatch_queue> *_monitorQueue;
+	NSMutableArray *_leafMonitorSources;
+	NSMutableDictionary *_monitoredPaths;
 }
 
 + (id)sharedProfilesPathMonitor;
@@ -378,27 +378,27 @@ typedef void (^CDUnknownBlockType)(void); // return type and parameters are unkn
 
 @interface SimRuntime : NSObject
 {
-    unsigned int _version;
-    unsigned int _minHostVersion;
-    unsigned int _maxHostVersion;
-    unsigned int _minCoreSimulatorFrameworkVersion;
-    unsigned int _maxCoreSimulatorFrameworkVersion;
-    NSString *_name;
-    NSString *_identifier;
-    NSBundle *_bundle;
-    NSString *_root;
-    NSString *_versionString;
-    NSString *_buildVersionString;
-    NSDictionary *_supportedFeatures;
-    NSDictionary *_supportedFeaturesConditionalOnDeviceType;
-    NSDictionary *_requiredHostServices;
-    NSDictionary *_forwardHostNotifications;
-    NSDictionary *_forwardHostNotificationsWithState;
-    NSString *_platformPath;
-    NSArray *_supportedProductFamilyIDs;
-    NSDictionary *_environment_extra;
-    void *_libLaunchHostHandle;
-    NSDictionary *_aliases;
+	unsigned int _version;
+	unsigned int _minHostVersion;
+	unsigned int _maxHostVersion;
+	unsigned int _minCoreSimulatorFrameworkVersion;
+	unsigned int _maxCoreSimulatorFrameworkVersion;
+	NSString *_name;
+	NSString *_identifier;
+	NSBundle *_bundle;
+	NSString *_root;
+	NSString *_versionString;
+	NSString *_buildVersionString;
+	NSDictionary *_supportedFeatures;
+	NSDictionary *_supportedFeaturesConditionalOnDeviceType;
+	NSDictionary *_requiredHostServices;
+	NSDictionary *_forwardHostNotifications;
+	NSDictionary *_forwardHostNotificationsWithState;
+	NSString *_platformPath;
+	NSArray *_supportedProductFamilyIDs;
+	NSDictionary *_environment_extra;
+	void *_libLaunchHostHandle;
+	NSDictionary *_aliases;
 }
 
 + (void)supportedRuntimesAddProfilesAtPath:(id)arg1;

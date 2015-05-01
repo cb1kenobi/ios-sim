@@ -3,403 +3,196 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2481364C115A750000E3A9BA /* iPhoneSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 24813648115A750000E3A9BA /* iPhoneSimulator.m */; };
-		2481364D115A750000E3A9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24813649115A750000E3A9BA /* main.m */; };
-		2481364E115A750000E3A9BA /* nsprintf.m in Sources */ = {isa = PBXBuildFile; fileRef = 2481364B115A750000E3A9BA /* nsprintf.m */; };
-		51448B3412BCF637001F99BD /* NSString+expandPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 51448B3312BCF637001F99BD /* NSString+expandPath.m */; };
-		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
-		CEDBC20A1ABA0DF900F05586 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = CEDBC2091ABA0DF900F05586 /* PushNotificationPayload.apns */; };
-		CEDCFC251AB7487F00467B78 /* ios_sim_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDCFC241AB7487F00467B78 /* ios_sim_tests.m */; };
-		DAD3AA931476F03C000828B8 /* ipad.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAD3AA901476F03C000828B8 /* ipad.plist */; };
-		DAD3AA941476F03C000828B8 /* iphone.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAD3AA911476F03C000828B8 /* iphone.plist */; };
-		DAD3AA951476F03C000828B8 /* retina.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAD3AA921476F03C000828B8 /* retina.plist */; };
+		831D73A81AEE32CA00D502C5 /* log.m in Sources */ = {isa = PBXBuildFile; fileRef = 831D73A71AEE32CA00D502C5 /* log.m */; };
+		831D73AB1AEE472200D502C5 /* iOSSimulatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 831D73AA1AEE472200D502C5 /* iOSSimulatorDelegate.m */; };
+		83476F121AE6CC9500716EB2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83476F111AE6CC9500716EB2 /* main.m */; };
+		83476F1A1AE7206F00716EB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83476F191AE7206F00716EB2 /* Foundation.framework */; };
+		83476F1C1AE724BB00716EB2 /* iOSSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 83476F171AE6D59900716EB2 /* iOSSimulator.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		CEDCFC291AB748CB00467B78 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DD76F960486AA7600D96B5E;
-			remoteInfo = "ios-sim";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
+		83476EFC1AE6C6A500716EB2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = configs;
-			dstSubfolderSpec = 7;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
 			files = (
-				DAD3AA931476F03C000828B8 /* ipad.plist in CopyFiles */,
-				DAD3AA941476F03C000828B8 /* iphone.plist in CopyFiles */,
-				DAD3AA951476F03C000828B8 /* retina.plist in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		24813647115A750000E3A9BA /* iPhoneSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = iPhoneSimulator.h; path = Source/iPhoneSimulator.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
-		24813648115A750000E3A9BA /* iPhoneSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = iPhoneSimulator.m; path = Source/iPhoneSimulator.m; sourceTree = "<group>"; usesTabs = 1; };
-		24813649115A750000E3A9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
-		2481364A115A750000E3A9BA /* nsprintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nsprintf.h; path = Source/nsprintf.h; sourceTree = "<group>"; };
-		2481364B115A750000E3A9BA /* nsprintf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = nsprintf.m; path = Source/nsprintf.m; sourceTree = "<group>"; };
-		2BB505CF197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTiPhoneSimulatorRemoteClient.h; sourceTree = "<group>"; };
-		2BB505D1197F218700AB44E6 /* CoreSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSimulator.h; sourceTree = "<group>"; };
-		32A70AAB03705E1F00C91783 /* ios-sim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios-sim_Prefix.pch"; sourceTree = "<group>"; };
-		51448B3212BCF637001F99BD /* NSString+expandPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+expandPath.h"; path = "Source/NSString+expandPath.h"; sourceTree = "<group>"; };
-		51448B3312BCF637001F99BD /* NSString+expandPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+expandPath.m"; path = "Source/NSString+expandPath.m"; sourceTree = "<group>"; };
-		51448B3512BD0328001F99BD /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Source/version.h; sourceTree = "<group>"; };
-		8DD76FA10486AA7600D96B5E /* ios-sim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ios-sim"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE84E7651AAFA7A10042581C /* IDEiOSSupportCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEiOSSupportCore.h; sourceTree = "<group>"; };
-		CE84E7671AB0AE010042581C /* DVTFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTFoundation.h; sourceTree = "<group>"; };
-		CEDBC2091ABA0DF900F05586 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		CEDCFC201AB7487F00467B78 /* ios-sim-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-sim-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEDCFC231AB7487F00467B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEDCFC241AB7487F00467B78 /* ios_sim_tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ios_sim_tests.m; sourceTree = "<group>"; };
-		DAD3AA901476F03C000828B8 /* ipad.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ipad.plist; path = configs/ipad.plist; sourceTree = "<group>"; };
-		DAD3AA911476F03C000828B8 /* iphone.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iphone.plist; path = configs/iphone.plist; sourceTree = "<group>"; };
-		DAD3AA921476F03C000828B8 /* retina.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = retina.plist; path = configs/retina.plist; sourceTree = "<group>"; };
+		831D73A61AEE2F6E00D502C5 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		831D73A71AEE32CA00D502C5 /* log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = log.m; sourceTree = "<group>"; };
+		831D73A91AEE464F00D502C5 /* iOSSimulatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSSimulatorDelegate.h; sourceTree = "<group>"; };
+		831D73AA1AEE472200D502C5 /* iOSSimulatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSSimulatorDelegate.m; sourceTree = "<group>"; };
+		832360A41AEAF3D1006983C3 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		832360A51AEB6366006983C3 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		83476EFE1AE6C6A500716EB2 /* ios-sim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ios-sim"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83476F091AE6C6D100716EB2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		83476F111AE6CC9500716EB2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		83476F141AE6CD8000716EB2 /* iOSSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSSimulator.h; sourceTree = "<group>"; };
+		83476F171AE6D59900716EB2 /* iOSSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSSimulator.m; sourceTree = "<group>"; };
+		83476F191AE7206F00716EB2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		83C0060D1AEF5468009EA1A1 /* SimulatorBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimulatorBase.h; sourceTree = "<group>"; };
+		83C006101AF20433009EA1A1 /* CoreSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreSimulator.h; path = gen/CoreSimulator.h; sourceTree = "<group>"; };
+		83C006111AF20433009EA1A1 /* DVTFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DVTFoundation.h; path = gen/DVTFoundation.h; sourceTree = "<group>"; };
+		83C006121AF20433009EA1A1 /* DVTiPhoneSimulatorRemoteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DVTiPhoneSimulatorRemoteClient.h; path = gen/DVTiPhoneSimulatorRemoteClient.h; sourceTree = "<group>"; };
+		83C006131AF20433009EA1A1 /* IDEiOSSupportCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IDEiOSSupportCore.h; path = gen/IDEiOSSupportCore.h; sourceTree = "<group>"; };
+		83C006141AF37416009EA1A1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8DD76F9B0486AA7600D96B5E /* Frameworks */ = {
+		83476EFB1AE6C6A500716EB2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEDCFC1D1AB7487F00467B78 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				83476F1A1AE7206F00716EB2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08FB7794FE84155DC02AAC07 /* iphonesim */ = {
+		83476EF51AE6C6A500716EB2 = {
 			isa = PBXGroup;
 			children = (
-				08FB7795FE84155DC02AAC07 /* Source */,
-				DAD3AA961476F046000828B8 /* Configs */,
-				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
-				CEDCFC211AB7487F00467B78 /* ios-sim-tests */,
-				1AB674ADFE9D54B511CA2CBB /* Products */,
+				83476F191AE7206F00716EB2 /* Foundation.framework */,
+				83476EFF1AE6C6A500716EB2 /* bin */,
+				83476F081AE6C6B400716EB2 /* doc */,
+				83476F131AE6CD3200716EB2 /* include */,
+				83476F0B1AE6CB1500716EB2 /* src */,
 			);
-			name = iphonesim;
 			sourceTree = "<group>";
 		};
-		08FB7795FE84155DC02AAC07 /* Source */ = {
+		83476EFF1AE6C6A500716EB2 /* bin */ = {
 			isa = PBXGroup;
 			children = (
-				2BB505D0197F218700AB44E6 /* CoreSimulator */,
-				CE84E7661AB0AE010042581C /* DVTFoundation */,
-				2BB505CE197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient */,
-				CE84E7641AAFA7A10042581C /* IDEiOSSupportCore */,
-				24813647115A750000E3A9BA /* iPhoneSimulator.h */,
-				24813648115A750000E3A9BA /* iPhoneSimulator.m */,
-				24813649115A750000E3A9BA /* main.m */,
-				2481364A115A750000E3A9BA /* nsprintf.h */,
-				2481364B115A750000E3A9BA /* nsprintf.m */,
-				32A70AAB03705E1F00C91783 /* ios-sim_Prefix.pch */,
-				51448B3212BCF637001F99BD /* NSString+expandPath.h */,
-				51448B3312BCF637001F99BD /* NSString+expandPath.m */,
-				51448B3512BD0328001F99BD /* version.h */,
+				83476EFE1AE6C6A500716EB2 /* ios-sim */,
 			);
-			name = Source;
+			name = bin;
 			sourceTree = "<group>";
 		};
-		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
+		83476F081AE6C6B400716EB2 /* doc */ = {
 			isa = PBXGroup;
 			children = (
-				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
+				83C006141AF37416009EA1A1 /* LICENSE */,
+				83476F091AE6C6D100716EB2 /* README.md */,
 			);
-			name = "External Frameworks and Libraries";
+			name = doc;
 			sourceTree = "<group>";
 		};
-		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+		83476F0B1AE6CB1500716EB2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				8DD76FA10486AA7600D96B5E /* ios-sim */,
-				CEDCFC201AB7487F00467B78 /* ios-sim-tests.xctest */,
+				83476F171AE6D59900716EB2 /* iOSSimulator.m */,
+				831D73AA1AEE472200D502C5 /* iOSSimulatorDelegate.m */,
+				831D73A71AEE32CA00D502C5 /* log.m */,
+				83476F111AE6CC9500716EB2 /* main.m */,
 			);
-			name = Products;
+			path = src;
 			sourceTree = "<group>";
 		};
-		2BB505CE197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient */ = {
+		83476F131AE6CD3200716EB2 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				2BB505CF197F14DD00AB44E6 /* DVTiPhoneSimulatorRemoteClient.h */,
+				83C0060F1AF20423009EA1A1 /* gen */,
+				83476F141AE6CD8000716EB2 /* iOSSimulator.h */,
+				831D73A91AEE464F00D502C5 /* iOSSimulatorDelegate.h */,
+				831D73A61AEE2F6E00D502C5 /* log.h */,
+				83C0060D1AEF5468009EA1A1 /* SimulatorBase.h */,
+				832360A41AEAF3D1006983C3 /* version.h */,
+				832360A51AEB6366006983C3 /* util.h */,
 			);
-			path = DVTiPhoneSimulatorRemoteClient;
+			path = include;
 			sourceTree = "<group>";
 		};
-		2BB505D0197F218700AB44E6 /* CoreSimulator */ = {
+		83C0060F1AF20423009EA1A1 /* gen */ = {
 			isa = PBXGroup;
 			children = (
-				2BB505D1197F218700AB44E6 /* CoreSimulator.h */,
+				83C006101AF20433009EA1A1 /* CoreSimulator.h */,
+				83C006111AF20433009EA1A1 /* DVTFoundation.h */,
+				83C006121AF20433009EA1A1 /* DVTiPhoneSimulatorRemoteClient.h */,
+				83C006131AF20433009EA1A1 /* IDEiOSSupportCore.h */,
 			);
-			path = CoreSimulator;
-			sourceTree = "<group>";
-		};
-		CE84E7641AAFA7A10042581C /* IDEiOSSupportCore */ = {
-			isa = PBXGroup;
-			children = (
-				CE84E7651AAFA7A10042581C /* IDEiOSSupportCore.h */,
-			);
-			path = IDEiOSSupportCore;
-			sourceTree = "<group>";
-		};
-		CE84E7661AB0AE010042581C /* DVTFoundation */ = {
-			isa = PBXGroup;
-			children = (
-				CE84E7671AB0AE010042581C /* DVTFoundation.h */,
-			);
-			path = DVTFoundation;
-			sourceTree = "<group>";
-		};
-		CEDCFC211AB7487F00467B78 /* ios-sim-tests */ = {
-			isa = PBXGroup;
-			children = (
-				CEDCFC241AB7487F00467B78 /* ios_sim_tests.m */,
-				CEDCFC221AB7487F00467B78 /* Supporting Files */,
-			);
-			path = "ios-sim-tests";
-			sourceTree = "<group>";
-		};
-		CEDCFC221AB7487F00467B78 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CEDBC2091ABA0DF900F05586 /* PushNotificationPayload.apns */,
-				CEDCFC231AB7487F00467B78 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DAD3AA961476F046000828B8 /* Configs */ = {
-			isa = PBXGroup;
-			children = (
-				DAD3AA901476F03C000828B8 /* ipad.plist */,
-				DAD3AA911476F03C000828B8 /* iphone.plist */,
-				DAD3AA921476F03C000828B8 /* retina.plist */,
-			);
-			name = Configs;
+			name = gen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F960486AA7600D96B5E /* ios-sim */ = {
+		83476EFD1AE6C6A500716EB2 /* ios-sim */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "ios-sim" */;
+			buildConfigurationList = 83476F051AE6C6A500716EB2 /* Build configuration list for PBXNativeTarget "ios-sim" */;
 			buildPhases = (
-				8DD76F990486AA7600D96B5E /* Sources */,
-				8DD76F9B0486AA7600D96B5E /* Frameworks */,
-				8DD76F9E0486AA7600D96B5E /* CopyFiles */,
+				83476EFA1AE6C6A500716EB2 /* Sources */,
+				83476EFB1AE6C6A500716EB2 /* Frameworks */,
+				83476EFC1AE6C6A500716EB2 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "ios-sim";
-			productInstallPath = "$(HOME)/bin";
-			productName = iphonesim;
-			productReference = 8DD76FA10486AA7600D96B5E /* ios-sim */;
+			productName = "ios-sim";
+			productReference = 83476EFE1AE6C6A500716EB2 /* ios-sim */;
 			productType = "com.apple.product-type.tool";
-		};
-		CEDCFC1F1AB7487F00467B78 /* ios-sim-tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CEDCFC281AB7487F00467B78 /* Build configuration list for PBXNativeTarget "ios-sim-tests" */;
-			buildPhases = (
-				CEDCFC1C1AB7487F00467B78 /* Sources */,
-				CEDCFC1D1AB7487F00467B78 /* Frameworks */,
-				CEDCFC1E1AB7487F00467B78 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CEDCFC2A1AB748CB00467B78 /* PBXTargetDependency */,
-			);
-			name = "ios-sim-tests";
-			productName = "ios-sim-tests";
-			productReference = CEDCFC201AB7487F00467B78 /* ios-sim-tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		08FB7793FE84155DC02AAC07 /* Project object */ = {
+		83476EF61AE6C6A500716EB2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = Appcelerator;
 				TargetAttributes = {
-					CEDCFC1F1AB7487F00467B78 = {
+					83476EFD1AE6C6A500716EB2 = {
 						CreatedOnToolsVersion = 6.3;
 					};
 				};
 			};
-			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "ios-sim" */;
-			compatibilityVersion = "Xcode 3.1";
+			buildConfigurationList = 83476EF91AE6C6A500716EB2 /* Build configuration list for PBXProject "ios-sim" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 08FB7794FE84155DC02AAC07 /* iphonesim */;
+			mainGroup = 83476EF51AE6C6A500716EB2;
+			productRefGroup = 83476EFF1AE6C6A500716EB2 /* bin */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DD76F960486AA7600D96B5E /* ios-sim */,
-				CEDCFC1F1AB7487F00467B78 /* ios-sim-tests */,
+				83476EFD1AE6C6A500716EB2 /* ios-sim */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		CEDCFC1E1AB7487F00467B78 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEDBC20A1ABA0DF900F05586 /* PushNotificationPayload.apns in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		8DD76F990486AA7600D96B5E /* Sources */ = {
+		83476EFA1AE6C6A500716EB2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2481364C115A750000E3A9BA /* iPhoneSimulator.m in Sources */,
-				2481364D115A750000E3A9BA /* main.m in Sources */,
-				2481364E115A750000E3A9BA /* nsprintf.m in Sources */,
-				51448B3412BCF637001F99BD /* NSString+expandPath.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEDCFC1C1AB7487F00467B78 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEDCFC251AB7487F00467B78 /* ios_sim_tests.m in Sources */,
+				831D73A81AEE32CA00D502C5 /* log.m in Sources */,
+				83476F1C1AE724BB00716EB2 /* iOSSimulator.m in Sources */,
+				83476F121AE6CC9500716EB2 /* main.m in Sources */,
+				831D73AB1AEE472200D502C5 /* iOSSimulatorDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		CEDCFC2A1AB748CB00467B78 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DD76F960486AA7600D96B5E /* ios-sim */;
-			targetProxy = CEDCFC291AB748CB00467B78 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		1DEB927508733DD40010E9CD /* Debug */ = {
+		83476F031AE6C6A500716EB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios-sim_Prefix.pch";
-				INSTALL_PATH = /usr/local/bin;
-				LD_DYLIB_INSTALL_NAME = "";
-				LD_RUNPATH_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "ios-sim";
-				VALID_ARCHS = x86_64;
-			};
-			name = Debug;
-		};
-		1DEB927608733DD40010E9CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios-sim_Prefix.pch";
-				INSTALL_PATH = /usr/local/bin;
-				LD_DYLIB_INSTALL_NAME = "";
-				LD_RUNPATH_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "ios-sim";
-				VALID_ARCHS = x86_64;
-			};
-			name = Release;
-		};
-		1DEB927908733DD40010E9CD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = .;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
-				SDKROOT = "";
-				VALID_ARCHS = x86_64;
-			};
-			name = Debug;
-		};
-		1DEB927A08733DD40010E9CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = .;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
-				SDKROOT = "";
-				VALID_ARCHS = x86_64;
-			};
-			name = Release;
-		};
-		CEDCFC261AB7487F00467B78 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -413,16 +206,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -433,19 +223,18 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "ios-sim-tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		CEDCFC271AB7487F00467B78 /* Release */ = {
+		83476F041AE6C6A500716EB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -459,61 +248,64 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "ios-sim-tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		83476F061AE6C6A500716EB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = include;
+			};
+			name = Debug;
+		};
+		83476F071AE6C6A500716EB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = include;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "ios-sim" */ = {
+		83476EF91AE6C6A500716EB2 /* Build configuration list for PBXProject "ios-sim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB927508733DD40010E9CD /* Debug */,
-				1DEB927608733DD40010E9CD /* Release */,
+				83476F031AE6C6A500716EB2 /* Debug */,
+				83476F041AE6C6A500716EB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "ios-sim" */ = {
+		83476F051AE6C6A500716EB2 /* Build configuration list for PBXNativeTarget "ios-sim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB927908733DD40010E9CD /* Debug */,
-				1DEB927A08733DD40010E9CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEDCFC281AB7487F00467B78 /* Build configuration list for PBXNativeTarget "ios-sim-tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEDCFC261AB7487F00467B78 /* Debug */,
-				CEDCFC271AB7487F00467B78 /* Release */,
+				83476F061AE6C6A500716EB2 /* Debug */,
+				83476F071AE6C6A500716EB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+	rootObject = 83476EF61AE6C6A500716EB2 /* Project object */;
 }

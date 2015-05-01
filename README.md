@@ -1,56 +1,77 @@
 ios-sim
 =======
 
-The ios-sim tool is a command-line utility that launches an iOS application on
-the iOS Simulator. This allows for niceties such as automated testing without
-having to open XCode.
+The ios-sim is a command-line utility for controlling the iOS Simulator. It's
+capable of launching the simulator, installing apps, launching apps, and
+querying iOS SDKs and Simulators. This allows for niceties such as automated
+testing without having to open Xcode.
 
-This fork fixes a dynamic loading problem when running Xcode 4.3.  To use:
+ios-sim only support Xcode 6 and newer.
 
-1. Download the ios-sim-xcode43.tar.gz file from the Download section above.
-2. Extract the ios-sim executable and copy it to TITANIUM_HOME/mobilesdk/osx/1.8.1/iphone/ios-sim.
-3. Make sure you have run "sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer" to set the new path to the developer tools.
+## Features
 
-Clean your build directory and rebuild!
-
-
-Features
---------
-
-* Choose the device family to simulate, i.e. iPhone or iPad.
+* List available iOS SDKs and simulators.
+* List and launch apps in the simulator.
 * Setup environment variables.
 * Pass arguments to the application.
 * See the stdout and stderr, or redirect them to files.
+* Install watch extensions and show the external display.
 
 See the `--help` option for more info.
 
-Installation
-------------
+## Commands
 
-Through homebrew:
+### launch
+Launch the specified iOS Simulator:
 
-    $ brew install ios-sim
+```
+ios-sim launch --udid <udid>
+```
 
-Download an archive:
+Launch an iOS Simulator, then install an app:
 
-    $ curl -L https://github.com/Fingertips/ios-sim/zipball/1.3 -o ios-sim-1.3.zip
-    $ unzip ios-sim-1.3.zip
+```
+ios-sim launch --udid <udid> --install-app <path>
+```
 
-Or from a git clone:
+Launch an iOS Simulator, then install an app with a watch extension:
 
-    $ git clone git://github.com/Fingertips/ios-sim.git
+```
+ios-sim launch --udid <udid> --install-app <path> --launch-watch-app
+```
 
-Then build and install from the source root:
+### show-installed-apps
+Launches the specified iOS Simulator and returns a list of all installed apps as JSON.
 
-    $ rake install prefix=/usr/local/
+```
+ios-sim show-installed-apps --udid <udid>
+```
 
-License
--------
+### show-sdks
+Displays supported iOS SDKs as JSON.
+
+```
+ios-sim show-sdks
+```
+
+### show-simulators
+Displays iOS Simulators as JSON.
+
+```
+ios-sim show-simulators
+```
+
+## Additional Help
+
+You can run any command followed by `--help` for more detailed information.
+
+## License
+
+Copyright (c) 2009-2015 by Appcelerator, Inc. All Rights Reserved.
 
 Original author: Landon Fuller <landonf@plausiblelabs.com>
 Copyright (c) 2008-2011 Plausible Labs Cooperative, Inc.
 All rights reserved.
 
-This project is available under the MIT license. See [LICENSE][license].
-
-[license]: https://github.com/Fingertips/ios-sim/blob/master/LICENSE
+See the [LICENSE](https://github.com/appcelerator/ios-sim/blob/master/LICENSE)
+file for more information.

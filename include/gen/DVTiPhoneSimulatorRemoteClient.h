@@ -63,13 +63,13 @@
 
 @interface DTiPhoneSimulatorSession : NSObject <DVTInvalidation>
 {
-    int _simulatedApplicationPID;
-    int _simulatorPID;
-    id <DTiPhoneSimulatorSessionDelegate> _delegate;
-    NSString *_simulatedAppPath;
-    NSString *_uuid;
-    DTiPhoneSimulatorSessionConfig *_sessionConfig;
-    long long _sessionLifecycleProgress;
+	int _simulatedApplicationPID;
+	int _simulatorPID;
+	id <DTiPhoneSimulatorSessionDelegate> _delegate;
+	NSString *_simulatedAppPath;
+	NSString *_uuid;
+	DTiPhoneSimulatorSessionConfig *_sessionConfig;
+	long long _sessionLifecycleProgress;
 }
 
 + (void)initialize;
@@ -105,34 +105,34 @@
 @end
 
 typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
-    DTiPhoneSimulatorExternalDisplayTypeWatchRegular = 1,
-    DTiPhoneSimulatorExternalDisplayTypeWatchCompact = 2,
-    DTiPhoneSimulatorExternalDisplayTypeCarPlay = 3
+	DTiPhoneSimulatorExternalDisplayTypeWatchRegular = 1,
+	DTiPhoneSimulatorExternalDisplayTypeWatchCompact = 2,
+	DTiPhoneSimulatorExternalDisplayTypeCarPlay = 3
 };
 
 @interface DTiPhoneSimulatorSessionConfig : NSObject <NSCopying>
 {
-    BOOL _shouldInstallApplicationToSimulate;
-    BOOL _simulatedApplicationShouldWaitForDebugger;
-    BOOL _launchForBackgroundFetch;
-    SimDevice *_device;
-    SimRuntime *_runtime;
-    NSString *_simulatedArchitecture;
-    DTiPhoneSimulatorApplicationSpecifier *_applicationToSimulateOnStart;
-    NSNumber *_pid;
-    NSArray *_simulatedApplicationLaunchArgs;
-    NSDictionary *_simulatedApplicationLaunchEnvironment;
-    NSString *_simulatedApplicationStdOutPath;
-    NSString *_simulatedApplicationStdErrPath;
-    NSFileHandle *_stdinFileHandle;
-    NSFileHandle *_stdoutFileHandle;
-    NSFileHandle *_stderrFileHandle;
-    long long _externalDisplayType;
-    NSString *_simulatedDeviceInfoName;
-    NSString *_localizedClientName;
-    NSNumber *_simulatedDeviceFamily;
-    NSNumber *_simulatedDisplayHeight;
-    NSNumber *_simulatedDisplayScale;
+	BOOL _shouldInstallApplicationToSimulate;
+	BOOL _simulatedApplicationShouldWaitForDebugger;
+	BOOL _launchForBackgroundFetch;
+	SimDevice *_device;
+	SimRuntime *_runtime;
+	NSString *_simulatedArchitecture;
+	DTiPhoneSimulatorApplicationSpecifier *_applicationToSimulateOnStart;
+	NSNumber *_pid;
+	NSArray *_simulatedApplicationLaunchArgs;
+	NSDictionary *_simulatedApplicationLaunchEnvironment;
+	NSString *_simulatedApplicationStdOutPath;
+	NSString *_simulatedApplicationStdErrPath;
+	NSFileHandle *_stdinFileHandle;
+	NSFileHandle *_stdoutFileHandle;
+	NSFileHandle *_stderrFileHandle;
+	long long _externalDisplayType;
+	NSString *_simulatedDeviceInfoName;
+	NSString *_localizedClientName;
+	NSNumber *_simulatedDeviceFamily;
+	NSNumber *_simulatedDisplayHeight;
+	NSNumber *_simulatedDisplayScale;
 }
 
 + (id)displayNameForDeviceFamily:(id)arg1;
@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
 
 @interface DTiPhoneSimulatorSystemRoot : NSObject <NSCopying>
 {
-    SimRuntime *_runtime;
+	SimRuntime *_runtime;
 }
 
 + (id)rootWithSDKVersion:(id)arg1;
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
 
 @interface DTiPhoneSimulatorApplicationSpecifier_Path : DTiPhoneSimulatorApplicationSpecifier
 {
-    NSString *_appPath;
+	NSString *_appPath;
 }
 
 + (id)specifierWithApplicationPath:(id)arg1;
@@ -218,7 +218,7 @@ typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
 
 @interface DTiPhoneSimulatorApplicationSpecifier_BundleIdentifier : DTiPhoneSimulatorApplicationSpecifier
 {
-    NSString *_bundleID;
+	NSString *_bundleID;
 }
 
 + (id)specifierWithApplicationBundleIdentifier:(id)arg1;
@@ -229,7 +229,7 @@ typedef NS_ENUM(NSInteger, DTiPhoneSimulatorExternalDisplayType) {
 
 @interface DTiPhoneSimulatorApplicationSpecifier_ToolPath : DTiPhoneSimulatorApplicationSpecifier
 {
-    NSString *_toolPath;
+	NSString *_toolPath;
 }
 
 + (id)specifierWithToolPath:(id)arg1;
