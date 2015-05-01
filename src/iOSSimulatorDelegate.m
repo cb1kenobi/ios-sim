@@ -39,7 +39,7 @@
 	}
 
 	DEBUG_LOG("Simulator started successfully\n");
-	self->started = YES;
+	self->hasStarted = YES;
 	self->simulatorPID = session.simulatorPID;
 	self->simulatedApplicationPID = session.simulatedApplicationPID;
 
@@ -208,7 +208,7 @@
 
 - (void)kill
 {
-	if (self->started) {
+	if (self->hasStarted) {
 		DEBUG_LOG("Killing simulator\n");
 		if (self->simulatedApplicationPID) {
 			kill(self->simulatedApplicationPID, SIGTERM);

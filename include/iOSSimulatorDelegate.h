@@ -23,7 +23,7 @@
 @interface iOSSimulatorDelegate : NSObject<DTiPhoneSimulatorSessionDelegate>
 {
 	BOOL die;
-	BOOL started;
+	BOOL hasStarted;
 	BOOL killOnStartup;
 	int simulatorPID;
 	int simulatedApplicationPID;
