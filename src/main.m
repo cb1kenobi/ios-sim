@@ -50,9 +50,10 @@ int printHelp(char* command)
 		OUT("Usage: ios-sim launch --udid <udid> [--exit] [--launch-bundle-id <bundle id>] [--timeout <seconds>] [--xcode-dir <path>]\n");
 		OUT("       ios-sim launch --udid <udid> --install-app <path> [--xcode-dir <path>] [--args <value> ...]\n");
 		OUT("       ios-sim launch --udid <udid> --install-app <path> --launch-watch-app [--xcode-dir <path>]\n");
+		OUT("       ios-sim launch --udid <udid> --install-app <path> --launch-watch-app-only [--xcode-dir <path>]\n");
 		OUT("\n");
 		OUT("Launch Options:\n");
-		OUT("  --exit                               Exit ios-sim after launching the simulator, but don't kill the simulator.\n");
+		OUT("  --exit                               Exit ios-sim after launching the simulator and installing an app, but don't kill the simulator.\n");
 		OUT("  --kill-sim-on-error                  When an error occurs, kill the iOS Simulator before exiting ios-sim.\n");
 		OUT("  --launch-bundle-id <bundle id>       The bundle id for the application to launch. When installing an app, defaults to the app's bundle id unless `--launch-watch-app` has been set.\n");
 		OUT("%s\n", sdk);
@@ -71,7 +72,8 @@ int printHelp(char* command)
 		OUT("\n");
 		OUT("Watch App Options:\n");
 		OUT("  --external-display-type <type>       The type of the external screen: `watch-regular` (default), `watch-compact`, `carplay`.\n");
-		OUT("  --launch-watch-app                   Launch the installed applications's watch app.\n");
+		OUT("  --launch-watch-app                   Launch the installed applications's watch app as well as the main application.\n");
+		OUT("  --launch-watch-app-only              Launch the installed applications's watch app only and do not launch the main application.\n");
 		OUT("  --watch-launch-mode <mode>           The mode of the watch app to launch: `main` (default), `glance`, `notification`.\n");
 		OUT("  --watch-notification-payload <path>  The path to the payload file that will be delivered in notification mode.\n");
 	} else if (command != NULL && strncmp(command, "show-installed-apps", 19) == 0) {

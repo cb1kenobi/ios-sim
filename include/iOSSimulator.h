@@ -39,6 +39,7 @@
 @property (nonatomic)         BOOL keepalive;
 @property (nonatomic)         BOOL killSimOnError;
 @property (nonatomic)         BOOL launchWatchApp;
+@property (nonatomic)         BOOL launchApp;
 @property (nonatomic)         BOOL showInstalledApps;
 
 + (void)launchCommand:(int)argc argv:(char **)argv;

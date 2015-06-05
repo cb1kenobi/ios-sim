@@ -59,7 +59,7 @@
 
 	// if we have an app path and we're going to try to launch its watch extension,
 	// then this is the time we want to install the app
-	if (_sim.launchWatchApp) {
+	if (_sim.launchWatchApp && !_sim.launchApp) {
 		[self installApp];
 	}
 

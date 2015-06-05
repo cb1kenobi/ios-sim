@@ -48,6 +48,7 @@
 		_keepalive = NO;
 		_killSimOnError = NO;
 		_launchWatchApp = NO;
+		_launchApp = YES;
 		_showInstalledApps = NO;
 		_timeout = 30;
 	}
@@ -63,15 +64,10 @@
 
 	// if we're installing an app without launching its watch extension, then we just
 	// install the app right after launch
-	if (_appPath && !_launchWatchApp) {
-		NSBundle *appBundle = [NSBundle bundleWithPath:_appPath];
-		NSString *appBundleId = appBundle.bundleIdentifier;
-
-		if (!_launchBundleId || [appBundleId isEqual:_launchBundleId]) {
-			DEBUG_LOG("Installing app: %s\n", [_appPath UTF8String]);
-			DTiPhoneSimulatorApplicationSpecifier *appSpec = [[iOSSimulator findClassByName:@"DTiPhoneSimulatorApplicationSpecifier"] specifierWithApplicationPath:_appPath];
-			config.applicationToSimulateOnStart = appSpec;
-		}
+	if (_appPath && _launchApp) {
+		DEBUG_LOG("Installing app: %s\n", [_appPath UTF8String]);
+		DTiPhoneSimulatorApplicationSpecifier *appSpec = [[iOSSimulator findClassByName:@"DTiPhoneSimulatorApplicationSpecifier"] specifierWithApplicationPath:_appPath];
+		config.applicationToSimulateOnStart = appSpec;
 	}
 
 	Class systemRootClass = [iOSSimulator findClassByName:@"DTiPhoneSimulatorSystemRoot"];
@@ -179,13 +175,13 @@
 	iOSSimulator *sim = [iOSSimulator new];
 	
 	for (int i = 1; i < argc; i++) {
-		if (strncmp("--exit", argv[i], 6) == 0) {
+		if (strcmp("--exit", argv[i]) == 0) {
 			sim.exitOnStartup = YES;
 		
-		} else if (strncmp("--kill-sim-on-error", argv[i], 19) == 0) {
+		} else if (strcmp("--kill-sim-on-error", argv[i]) == 0) {
 			sim.killSimOnError = YES;
 			
-		} else if (strncmp("--setenv", argv[i], 8) == 0) {
+		} else if (strcmp("--setenv", argv[i]) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --setenv value.\n");
 				exit(EXIT_FAILURE);
@@ -197,7 +193,7 @@
 			}
 			[sim.environment setObject:[parts objectAtIndex:1] forKey:[parts objectAtIndex:0]];
 
-		} else if (strncmp("--env", argv[i], 5) == 0) {
+		} else if (strcmp("--env", argv[i]) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --env value.\n");
 				exit(EXIT_FAILURE);
@@ -214,7 +210,7 @@
 			}
 			[sim.environment addEntriesFromDictionary:tmp];
 		
-		} else if (strncmp("--args", argv[i], 6) == 0) {
+		} else if (strcmp("--args", argv[i]) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --args value.\n");
 				exit(EXIT_FAILURE);
@@ -225,7 +221,7 @@
 				[sim.args addObject:[NSString stringWithUTF8String:argv[i++]]];
 			}
 
-		} else if (strncmp("--install-app", argv[i], 13) == 0) {
+		} else if (strcmp("--install-app", argv[i]) == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --install-app value.\n");
 				exit(EXIT_FAILURE);
@@ -249,14 +245,14 @@
 				exit(EXIT_FAILURE);
 			}
 		
-		} else if (strncmp(argv[i], "--launch-bundle-id", 18) == 0) {
+		} else if (strcmp(argv[i], "--launch-bundle-id") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --launch-bundle-id value.\n");
 				exit(EXIT_FAILURE);
 			}
 			sim.launchBundleId = [NSString stringWithUTF8String:argv[i]];
 
-		} else if (strncmp(argv[i], "--timeout", 9) == 0) {
+		} else if (strcmp(argv[i], "--timeout") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --timeout value.\n");
 				exit(EXIT_FAILURE);
@@ -271,7 +267,7 @@
 				exit(EXIT_FAILURE);
 			}
 
-		} else if (strncmp(argv[i], "--udid", 6) == 0) {
+		} else if (strcmp(argv[i], "--udid") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --udid value.\n");
 				[self printAvailableSimulators:sims];
@@ -290,17 +286,21 @@
 				exit(EXIT_FAILURE);
 			}
 
-		} else if (strncmp(argv[i], "--sdk", 5) == 0) {
+		} else if (strcmp(argv[i], "--sdk") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --sdk value.\n");
 				exit(EXIT_FAILURE);
 			}
 			sim.sdk = [NSString stringWithUTF8String:argv[i]];
 
-		} else if (strncmp(argv[i], "--launch-watch-app", 18) == 0) {
+		} else if (strcmp(argv[i], "--launch-watch-app") == 0) {
 			sim.launchWatchApp = YES;
 
-		} else if (strncmp(argv[i], "--external-display-type", 23) == 0) {
+		} else if (strcmp(argv[i], "--launch-watch-app-only") == 0) {
+			sim.launchWatchApp = YES;
+			sim.launchApp = NO;
+			
+		} else if (strcmp(argv[i], "--external-display-type") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --external-display-type value. Valid values: `watch-regular`, `watch-compact`, `carplay`\n");
 				exit(EXIT_FAILURE);
@@ -311,7 +311,7 @@
 				exit(EXIT_FAILURE);
 			}
 
-		} else if (strncmp(argv[i], "--watch-launch-mode", 19) == 0) {
+		} else if (strcmp(argv[i], "--watch-launch-mode") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --watch-launch-mode value. Valid values: `main`, `glance`, `notification`\n");
 				exit(EXIT_FAILURE);
@@ -322,7 +322,7 @@
 				exit(EXIT_FAILURE);
 			}
 
-		} else if (strncmp(argv[i], "--watch-notification-payload", 28) == 0) {
+		} else if (strcmp(argv[i], "--watch-notification-payload") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --watch-notification-payload value.\n");
 				exit(EXIT_FAILURE);
@@ -340,14 +340,14 @@
 				exit(EXIT_FAILURE);
 			}
 			
-		} else if (strncmp(argv[i], "--stdout", 8) == 0) {
+		} else if (strcmp(argv[i], "--stdout") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --stdout value.\n");
 				exit(EXIT_FAILURE);
 			}
 			sim.stdoutPath = [[NSString stringWithUTF8String:argv[i]] expandPath];
 
-		} else if (strncmp(argv[i], "--stderr", 8) == 0) {
+		} else if (strcmp(argv[i], "--stderr") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --stdout value.\n");
 				exit(EXIT_FAILURE);
@@ -355,7 +355,7 @@
 			sim.stderrPath = [[NSString stringWithUTF8String:argv[i]] expandPath];
 		}
 	}
-	
+
 	if (sim.simDevice == nil) {
 		ERROR_LOG("Missing required --udid <udid> argument.\n");
 		[self printAvailableSimulators:sims];
@@ -363,12 +363,21 @@
 	}
 
 	if (sim.launchWatchApp && !sim.appPath) {
-		ERROR_LOG("--launch-watch-app requires --install-app <path> to be set\n");
+		ERROR_LOG("--launch-watch-app requires --install-app <path> to be set.\n");
+		exit(EXIT_FAILURE);
+	}
+	
+	if (sim.launchWatchApp && ![sim.simDevice supportsFeature:@"com.apple.watch.companion"]) {
+		if (sim.launchApp) {
+			ERROR_LOG("The specified iOS Simulator does not support WatchKit apps. Please rerun without the --launch-watch-app flag.\n");
+		} else {
+			ERROR_LOG("The specified iOS Simulator does not support WatchKit apps. Please rerun without the --launch-watch-app-only flag.\n");
+		}
 		exit(EXIT_FAILURE);
 	}
 	
 	if (!sim.watchNotificationPayload && [sim.watchLaunchMode isEqual: @"notification"]) {
-		ERROR_LOG("--watch-notification-payload <file> is required\n");
+		ERROR_LOG("--watch-notification-payload <file> is required.\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -386,10 +395,10 @@
 	sim.showInstalledApps = YES;
 	
 	for (int i = 1; i < argc; i++) {
-		if (strncmp("--keepalive", argv[i], 6) == 0) {
+		if (strcmp("--keepalive", argv[i]) == 0) {
 			sim.keepalive = YES;
 			
-		} else if (strncmp(argv[i], "--timeout", 9) == 0) {
+		} else if (strcmp(argv[i], "--timeout") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --timeout value.\n");
 				exit(EXIT_FAILURE);
@@ -404,7 +413,7 @@
 				exit(EXIT_FAILURE);
 			}
 			
-		} else if (strncmp(argv[i], "--udid", 6) == 0) {
+		} else if (strcmp(argv[i], "--udid") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --udid value.\n");
 				[self printAvailableSimulators:sims];
@@ -509,7 +518,7 @@
 
 	// first find the Xcode developer directory by scanning argv
 	for (int i = 0; i < argc; i++) {
-		if (strncmp(argv[i], "--xcode-dir", 11) == 0) {
+		if (strcmp(argv[i], "--xcode-dir") == 0) {
 			if (++i == argc) {
 				ERROR_LOG("Missing --xcode-dir value.\n");
 				exit(EXIT_FAILURE);
